@@ -1,0 +1,35 @@
+/*
+	Put anything you reference with "url()" in ../assets/
+	This way, you can minify your application, and just remove the "source" folder for production
+*/
+.nice-padding	{
+	padding: 15px;
+}
+
+.toolbarButton	{
+	height: 32px;
+	margin: 6px;
+	width: 32px;
+	text-align: center;	
+}
+
+.buttonIcon		{
+	margin-left: 7px;
+}
+
+#strongButton	{
+	font-weight: bold;
+}
+
+#emButton		{
+	font-style: italic;
+}
+
+#uButton		{
+	text-decoration: underline;
+}
+
+#strikethroughButton	{
+	text-decoration: line-through;
+	text-align: center;
+}

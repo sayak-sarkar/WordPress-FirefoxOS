@@ -1,278 +1,10 @@
-
-/* /home/sayak/Work/Github Repositories/wordpress-firefoxos/compose/enyo/../lib/layout/fittable/source/FittableLayout.css */
-
-.enyo-fittable-rows-layout {
-	position: relative;
-}
-
-.enyo-fittable-rows-layout > * {
-	box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	/* float when not stretched */
-	float: left;
-	clear: both;
-}
-
-/* non-floating when stretched */
-.enyo-fittable-rows-layout.enyo-stretch > * {
-	float: none;
-	clear: none;
-}
-
-/* setting to enforce margin collapsing */
-/* NOTE: rows cannot have margin left/right */
-.enyo-fittable-rows-layout.enyo-stretch.enyo-margin-expand > * {
-	float: left;
-	clear: both;
-	width: 100%;
-	/* note: harsh resets */
-	margin-left: 0 !important;
-	margin-right: 0 !important;
-}
-
-.enyo-fittable-columns-layout {
-	position: relative;
-	text-align: left;
-	white-space: nowrap;
-}
-
-.enyo-fittable-columns-layout.enyo-center {
-	text-align: center;
-}
-
-.enyo-fittable-columns-layout > * {
-	box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	vertical-align: top;
-	display: inline-block;
-	white-space: normal;
-}
-
-.enyo-fittable-columns-layout.enyo-tool-decorator > * {
-	vertical-align: middle;
-}
-
-/* repair clobbered white-space setting for pre, code */
-.enyo-fittable-columns-layout > pre, .enyo-fittable-columns-layout > code {
-	white-space: pre;
-}
-
-.enyo-fittable-columns-layout > .enyo-fittable-columns-layout, .enyo-fittable-columns-layout > .onyx-toolbar-inline {
-	white-space: nowrap;
-}
-
-/* NOTE: columns cannot have margin top/bottom */
-.enyo-fittable-columns-layout.enyo-stretch > * {
-	height: 100%;
-	/* note: harsh resets */
-	margin-top: 0 !important;
-	margin-bottom: 0 !important;
-}
-
-/* /home/sayak/Work/Github Repositories/wordpress-firefoxos/compose/enyo/../lib/layout/list/source/List.css */
-
-.enyo-list {
-	position: relative;
-}
-
-.enyo-list-port {
-	overflow: hidden;
-	position: relative;
-	height: 1000000px;
-}
-
-.enyo-list-page, .enyo-list-holdingarea {
-	position: absolute;
-	left: 0;
-	right: 0;
-}
-
-.enyo-list-holdingarea {
-	top: -10000px;
-}
-
-.enyo-pinned-list-placeholder {
-	border: 1px solid red;
-	position: absolute;
-	top: 0; left: 0;
-	z-index: 1000;
-	background: transparent;
-	overflow: hidden;
-}
-
-.enyo-pinned-list-placeholder button {
-	width: 100px; height: 100%;
-	position: absolute;
-	top: 0; right: 0;
-}
-
-.enyo-list-reorder-container {
-	position: absolute;
-	top: 0; left: 0;
-	z-index: 1000;
-	background: transparent;
-	overflow: hidden;
-}
-
-.enyo-animatedTopAndLeft {
-	-webkit-transition: top 0.1s linear, left 0.1s linear;
-	-moz-transition: top 0.1s linear, left 0.1s linear;
-	-o-transition: top 0.1s linear, left 0.1s linear;
-	transition: top 0.1s linear, left 0.1s linear;
-}
-
-/* /home/sayak/Work/Github Repositories/wordpress-firefoxos/compose/enyo/../lib/layout/list/source/PulldownList.css */
-
-.enyo-list-pulldown {
-	position: absolute;
-	bottom: 100%;
-	left: 0;
-	right: 0;
-}
-
-.enyo-puller {
-	position: relative;
-	height: 50px;
-	font-size: 22px;
-	color: #444;
-	padding: 20px 0 0px 34px;
-}
-
-.enyo-puller-text {
-	position: absolute;
-	left: 80px;
-	top: 22px;
-}
-
-.enyo-puller-arrow {
-	position: relative;
-	background: #444;
-	width: 7px;
-	height: 28px;
-	transition: transform 0.3s;
-	-webkit-transition: -webkit-transform 0.3s;
-	-moz-transition: -moz-transform 0.3s;
-	-o-transition: -o-transform 0.3s;
-	-ms-transition: -ms-transform 0.3s;
-}
-
-.enyo-puller-arrow:after {
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	border: 10px solid transparent;
-	border-bottom-color: #444;
-	bottom: 100%;
-	left: 50%;
-	margin-left: -10px;
-}
-
-.enyo-puller-arrow-up {
-	transform: rotate(0deg);
-	-webkit-transform: rotate(0deg);
-	-moz-transform: rotate(0deg);
-	-o-transform: rotate(0deg);
-	-ms-transform: rotate(0deg);
-}
-
-.enyo-puller-arrow-down {
-	transform: rotate(180deg);
-	-webkit-transform: rotate(180deg);
-	-moz-transform: rotate(180deg);
-	-o-transform: rotate(180deg);
-	-ms-transform: rotate(180deg);
-}
-
-/* /home/sayak/Work/Github Repositories/wordpress-firefoxos/compose/enyo/../lib/layout/panels/source/arrangers/Arranger.css */
-
-.enyo-arranger {
-	position: relative;
-	overflow: hidden;
-}
-
-.enyo-arranger.enyo-fit {
-	position: absolute;
-}
-
-.enyo-arranger > * {
-	position: absolute;
-	left: 0;
-	top: 0;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-.enyo-arranger-fit > * {
-	/* override any width/height set on panels */
-	width: 100% !important;
-	height: 100% !important;
-	min-width: 0 !important;
-	min-height: 0 !important;
-}
-
-
-/* /home/sayak/Work/Github Repositories/wordpress-firefoxos/compose/enyo/../lib/layout/panels/source/Panels.css */
-
-.enyo-panels {
-}
-
-.enyo-panels-fit-narrow {
-}
-
-@media all and (max-width: 800px) {
-	.enyo-panels-fit-narrow > * {
-		min-width: 100%;
-		max-width: 100%;
-	}
-}
-
-/* /home/sayak/Work/Github Repositories/wordpress-firefoxos/compose/enyo/../lib/layout/tree/source/Node.css */
-
-.enyo-node {
-	cursor: default;
-	padding: 4px;
-}
-
-.enyo-node img {
-	vertical-align: middle;
-	padding-right: 6px;
-}
-
-.enyo-node-box {
-	overflow: hidden;
-}
-
-.enyo-node-client {
-	position: relative;
-}
-
-.enyo-animate .enyo-node-box, .enyo-animate .enyo-node-client {
-	-ms-transition-property: height, top;
-	-ms-transition-duration: 0.2s, 0.2s;
-	-moz-transition-property: height, top;
-	-moz-transition-duration: 0.2s, 0.2s;
-	-o-transition-property: height, top;
-	-o-transition-duration: 0.2s, 0.2s;
-	-webkit-transition-property: height, top;
-	-webkit-transition-duration: 0.2s, 0.2s;
-	transition-property: height, top;
-	transition-duration: 0.2s, 0.2s;
-}
-
-
-/* /home/sayak/Work/Github Repositories/wordpress-firefoxos/compose/enyo/../lib/layout/imageview/source/ImageViewPin.css */
-
-
-.pinDebug {
-	background:yellow;
-	border:1px solid yellow;
-}
-
-/* /home/sayak/Work/Github Repositories/wordpress-firefoxos/compose/enyo/../lib/onyx/css/onyx.less */
+/* WARNING: This is a generated file for backward-compatibility.  Most      */
+/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
+/* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
+/* is commented out in your debug.html, and run deploy.sh/bat using the     */
+/* '-c' flag to disable LESS compilation.  This will force the loader and   */
+/* minifier to fall back to using CSS files in place of the same-name       */
+/* LESS file.                                                               */
 
 /* Onyx default parameters defined here */
 /* Fonts */
@@ -366,7 +98,7 @@
   /* border-bottom: 1px solid rgba(15, 15, 15, 0.5); */
 
   box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2);
-  background: #e1e1e1 url(../lib/onyx/images/gradient.png) repeat-x bottom;
+  background: #e1e1e1 url(./../images/gradient.png) repeat-x bottom;
   background-size: contain;
   /**/
 
@@ -387,13 +119,13 @@
 */
 .onyx-button.active,
 .onyx-button.pressed {
-  background-image: url(../lib/onyx/images/gradient-invert.png);
+  background-image: url(./../images/gradient-invert.png);
   background-position: top;
   border-top: 1px solid rgba(15, 15, 15, 0.6);
   box-shadow: inset 0px 1px 0px rgba(0, 0, 0, 0.1);
 }
 .onyx-button:active:hover:not([disabled]) {
-  background-image: url(../lib/onyx/images/gradient-invert.png);
+  background-image: url(./../images/gradient-invert.png);
   background-position: top;
   border-top: 1px solid rgba(15, 15, 15, 0.6);
   box-shadow: inset 0px 1px 0px rgba(0, 0, 0, 0.1);
@@ -414,7 +146,7 @@
   cursor: pointer;
   height: 32px;
   width: 32px;
-  background: url(../lib/onyx/images/checkbox.png) no-repeat;
+  background: url(./../images/checkbox.png) no-repeat;
   /* reset for ? */
 
   margin: 0px;
@@ -431,7 +163,7 @@
 }
 /* Grabber.css */
 .onyx-grabber {
-  background: url(../lib/onyx/images/grabbutton.png) no-repeat center;
+  background: url(./../images/grabbutton.png) no-repeat center;
   width: 23px;
   height: 27px;
 }
@@ -443,7 +175,7 @@
   border-radius: 8px;
   padding: 6px;
   color: #ffffff;
-  background: #4c4c4c url(../lib/onyx/images/gradient.png) repeat-x 0 bottom;
+  background: #4c4c4c url(./../images/gradient.png) repeat-x 0 bottom;
 }
 .onyx-popup-decorator {
   position: relative;
@@ -485,7 +217,7 @@
 
   background-color: #4c4c4c;
   border: none;
-  background: #4c4c4c url(../lib/onyx/images/gradient.png) repeat-x 0 10px;
+  background: #4c4c4c url(./../images/gradient.png) repeat-x 0 10px;
 }
 .onyx-groupbox .onyx-input-decorator {
   display: block;
@@ -719,7 +451,7 @@
   text-align: center;
   /**/
 
-  background: #e7e7e7 url(../lib/onyx/images/gradient.png) repeat-x bottom;
+  background: #e7e7e7 url(./../images/gradient.png) repeat-x bottom;
   /* IE8 */
 
   border: 1px solid #333333;
@@ -741,7 +473,7 @@
 }
 .onyx-radiobutton.active {
   color: #ffffff;
-  background: #0091f2 url(../lib/onyx/images/gradient-invert.png) repeat-x top;
+  background: #0091f2 url(./../images/gradient-invert.png) repeat-x top;
   border-top: 1px solid rgba(15, 15, 15, 0.6);
   box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.2);
 }
@@ -784,7 +516,7 @@
 
   border-radius: 3px;
   box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.4);
-  background: #8bba3d url(../lib/onyx/images/gradient-invert.png) repeat-x bottom;
+  background: #8bba3d url(./../images/gradient-invert.png) repeat-x bottom;
   background-size: auto 100%;
   /* label */
 
@@ -802,7 +534,7 @@
   height: 30px;
   margin: 1px;
   border-radius: 3px;
-  background: #f6f6f6 url(../lib/onyx/images/gradient.png) repeat-x;
+  background: #f6f6f6 url(./../images/gradient.png) repeat-x;
   background-size: auto 100%;
 }
 .onyx-toggle-button .onyx-toggle-button-knob {
@@ -842,7 +574,7 @@
 
   padding: 9px 8px 10px 8px;
   border: 1px solid #3A3A3A;
-  background: #4c4c4c url(../lib/onyx/images/gradient.png) repeat-x 0 bottom;
+  background: #4c4c4c url(./../images/gradient.png) repeat-x 0 bottom;
   background-size: contain;
   color: #ffffff;
   /**/
@@ -899,7 +631,7 @@
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.2);
   color: #ffffff;
-  background: #216593 url(../lib/onyx/images/gradient.png) repeat-x 0 bottom;
+  background: #216593 url(./../images/gradient.png) repeat-x 0 bottom;
   border-radius: 3px;
   white-space: nowrap;
 }
@@ -956,13 +688,13 @@
   height: 8px;
   border: 1px solid rgba(15, 15, 15, 0.2);
   border-radius: 3px;
-  background: #b8b8b8 url(../lib/onyx/images/gradient-invert.png) repeat-x;
+  background: #b8b8b8 url(./../images/gradient-invert.png) repeat-x;
   background-size: auto 100%;
 }
 .onyx-progress-bar-bar {
   height: 100%;
   border-radius: 3px;
-  background: #58abef url(../lib/onyx/images/gradient.png) repeat-x;
+  background: #58abef url(./../images/gradient.png) repeat-x;
   background-size: auto 100%;
 }
 .onyx-progress-bar-bar.striped {
@@ -1056,7 +788,7 @@
   position: relative;
   height: 40px;
   width: 40px;
-  background: url(../lib/onyx/images/slider-handle.png) left top no-repeat;
+  background: url(./../images/slider-handle.png) left top no-repeat;
   margin: -23px -20px;
 }
 .onyx-slider-knob.active,
@@ -1101,10 +833,10 @@
   width: 59px;
   height: 58px;
   display: inline-block;
-  background: url(../lib/onyx/images/spinner-dark.gif) no-repeat 0 0;
+  background: url(./../images/spinner-dark.gif) no-repeat 0 0;
 }
 .onyx-spinner.onyx-light {
-  background: url(../lib/onyx/images/spinner-light.gif) no-repeat 0 0;
+  background: url(./../images/spinner-light.gif) no-repeat 0 0;
 }
 /* MoreToolbar.css */
 .onyx-more-toolbar {
@@ -1128,7 +860,7 @@
   margin-bottom: 5px;
 }
 .onyx-more-button {
-  background-image: url(../lib/onyx/images/more.png);
+  background-image: url(./../images/more.png);
   width: 32px;
   height: 32px;
 }
@@ -1418,43 +1150,4 @@
 }
 .onyx-blue {
   background-color: #35A8EE;
-}
-
-
-/* source/compose.css */
-
-/*
-	Put anything you reference with "url(../source)" in ../assets/
-	This way, you can minify your application, and just remove the "source" folder for production
-*/
-.nice-padding	{
-	padding: 15px;
-}
-
-.toolbarButton	{
-	height: 32px;
-	margin: 6px;
-	width: 32px;
-	text-align: center;	
-}
-
-.buttonIcon		{
-	margin-left: 7px;
-}
-
-#strongButton	{
-	font-weight: bold;
-}
-
-#emButton		{
-	font-style: italic;
-}
-
-#uButton		{
-	text-decoration: underline;
-}
-
-#strikethroughButton	{
-	text-decoration: line-through;
-	text-align: center;
 }
