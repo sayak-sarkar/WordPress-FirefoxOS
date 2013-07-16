@@ -7,6 +7,9 @@ enyo.kind({
 
 		//Header Toolbar Definition
 		{kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", components: [
+			{kind: "onyx.Button", style: "width: 30px;", ontap: "backTap", components: [
+				{kind: "onyx.Icon", id: "strongButton",  content: "<"}
+			]},
 			{content: "New Post", fit: true}, 
 			{kind: "onyx.Button", content: "Preview", ontap: "previewTap"},
 			{kind: "onyx.Button", content: "Save Draft", ontap: "saveDraftTap"},
@@ -16,9 +19,13 @@ enyo.kind({
 		{name: "main", classes: "nice-padding", layoutKind:"FittableRowsLayout", fit: true, components: [
 
 			//Title Input box Definition
-			{kind: "onyx.InputDecorator", style: "width: 98.5%;", components: [
-				{kind: "onyx.Input", name: "title", placeholder: "Title"}
-			]},
+			{
+				 layoutKind:"FittableColumnsLayout", components: [
+				 	{kind: "onyx.InputDecorator", fit: true, components: [
+						{kind: "onyx.Input", name: "title", placeholder: "Title"}
+					]}
+				 ]
+			},
 
 			//Post Text Area Definition
 			{kind: "onyx.Groupbox", style: "margin-top: 15px; ", layoutKind:"FittableRowsLayout", fit: true, components: [
@@ -82,7 +89,7 @@ enyo.kind({
 			]}
 		]}
 	],
-	helloWorldTap: function(inSender, inEvent) {
-		this.$.main.addContent("The button was tapped.<br/>");
+	stub: function(inSender, inEvent) {
+		this.$.main.addContent("<br/>");
 	}
 });

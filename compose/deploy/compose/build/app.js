@@ -4427,6 +4427,15 @@ components: [ {
 kind: "onyx.Toolbar",
 layoutKind: "FittableColumnsLayout",
 components: [ {
+kind: "onyx.Button",
+style: "width: 30px;",
+ontap: "backTap",
+components: [ {
+kind: "onyx.Icon",
+id: "strongButton",
+content: "<"
+} ]
+}, {
 content: "New Post",
 fit: !0
 }, {
@@ -4448,12 +4457,15 @@ classes: "nice-padding",
 layoutKind: "FittableRowsLayout",
 fit: !0,
 components: [ {
+layoutKind: "FittableColumnsLayout",
+components: [ {
 kind: "onyx.InputDecorator",
-style: "width: 98.5%;",
+fit: !0,
 components: [ {
 kind: "onyx.Input",
 name: "title",
 placeholder: "Title"
+} ]
 } ]
 }, {
 kind: "onyx.Groupbox",
@@ -4618,7 +4630,7 @@ ontap: "settingsTap"
 } ]
 } ]
 } ],
-helloWorldTap: function(e, t) {
-this.$.main.addContent("The button was tapped.<br/>");
+stub: function(e, t) {
+this.$.main.addContent("<br/>");
 }
 });
