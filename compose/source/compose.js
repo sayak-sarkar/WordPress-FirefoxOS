@@ -74,7 +74,7 @@ enyo.kind({
 				]},
 				
 				//Main Scroller Definition
-				{kind: "enyo.Scroller", layoutKind:"FittableRowsLayout", fit: true, components: [
+				{kind: "enyo.Scroller", fit: true, horizontal: "hidden", layoutKind:"FittableRowsLayout", touch: true, thumb: true, components: [
 	
 					//Text Input Area Definition
 					{kind: "onyx.InputDecorator", layoutKind:"FittableRowsLayout", fit: true, style: "width: 100%; height: 100%;", components: [
@@ -89,6 +89,9 @@ enyo.kind({
 			]}
 		]}
 	],
+	backTap: function(inSender, inEvent) {
+		new wp.Home().renderInto(document.body);
+	},
 	stub: function(inSender, inEvent) {
 		this.$.main.addContent("<br/>");
 	}

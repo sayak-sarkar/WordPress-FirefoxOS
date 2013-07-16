@@ -4603,8 +4603,11 @@ src: "assets/compose/icon_camera.png"
 } ]
 }, {
 kind: "enyo.Scroller",
-layoutKind: "FittableRowsLayout",
 fit: !0,
+horizontal: "hidden",
+layoutKind: "FittableRowsLayout",
+touch: !0,
+thumb: !0,
 components: [ {
 kind: "onyx.InputDecorator",
 layoutKind: "FittableRowsLayout",
@@ -4630,6 +4633,45 @@ ontap: "settingsTap"
 } ]
 } ]
 } ],
+backTap: function(e, t) {
+(new wp.Home).renderInto(document.body);
+},
+stub: function(e, t) {
+this.$.main.addContent("<br/>");
+}
+});
+
+// home.js
+
+enyo.kind({
+name: "wp.Home",
+kind: "FittableRows",
+fit: !0,
+classes: "enyo-fit",
+components: [ {
+kind: "onyx.Toolbar",
+layoutKind: "FittableColumnsLayout",
+components: [ {
+kind: "onyx.Button",
+style: "width: 30px;",
+ontap: "backTap",
+components: [ {
+kind: "onyx.Icon",
+id: "strongButton",
+content: "="
+} ]
+}, {
+content: "Posts",
+fit: !0
+}, {
+kind: "onyx.Button",
+content: "+",
+ontap: "newPostTap"
+} ]
+} ],
+newPostTap: function(e, t) {
+(new wp.Compose).renderInto(document.body);
+},
 stub: function(e, t) {
 this.$.main.addContent("<br/>");
 }
