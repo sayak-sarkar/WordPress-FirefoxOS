@@ -1,10 +1,12 @@
 {
     "version": "0.01",
     "name": "WordPress",
-    "launch_path": "/index.html",
+    "launch_path": "/debug.html",
     "description": "WordPress for Firefox OS.",
     "icons": {
-        "48": "images/logo48.png",
+	"30": "assets/icon30.png",
+        "48": "assets/icon48.png",
+	"60": "assets/icon60.png",
         "64": "assets/icon64.png",
        "128": "assets/icon128.png"
     },

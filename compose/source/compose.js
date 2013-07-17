@@ -7,8 +7,8 @@ enyo.kind({
 
 		//Header Toolbar Definition
 		{kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", components: [
-			{kind: "onyx.Button", style: "width: 30px;", ontap: "backTap", components: [
-				{kind: "onyx.Icon", id: "strongButton",  content: "<"}
+			{kind: "onyx.Button", classes: "toolbarButton", ontap: "backTap", components: [
+				{kind: "onyx.Icon", classes: "buttonIcon", id: "back",  src: "assets/toolbar/back.png"},
 			]},
 			{content: "New Post", fit: true}, 
 			{kind: "onyx.Button", content: "Preview", ontap: "previewTap"},
@@ -90,7 +90,7 @@ enyo.kind({
 		]}
 	],
 	backTap: function(inSender, inEvent) {
-		new wp.Home().renderInto(document.body);
+		new wp.Posts().renderInto(document.body);
 	},
 	stub: function(inSender, inEvent) {
 		this.$.main.addContent("<br/>");

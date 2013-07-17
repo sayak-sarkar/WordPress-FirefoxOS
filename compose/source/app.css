@@ -6,6 +6,18 @@
 	padding: 15px;
 }
 
+/* Posts */
+.listItemContainer {
+	height:50px;
+	color:#777;
+	font-weight: bold;
+	background: #fff;
+	font-size:1.2em;
+	padding:10px;
+	border-bottom:1px solid gray;
+}
+
+/*Compose*/
 .toolbarButton	{
 	height: 32px;
 	margin: 6px;
@@ -32,4 +44,24 @@
 #strikethroughButton	{
 	text-decoration: line-through;
 	text-align: center;
+}
+
+#refresh		{
+	margin-left: -1px;
+	margin-top: -4.5px;
+}
+
+#newContent		{
+	margin-left: -1px;
+	margin-top: -5px;
+}
+
+#drawer		{
+	margin-left: 10.5px;
+	margin-top: -2px;
+}
+
+#back		{
+	margin-left: -5px;
+	margin-top: -5px;
 }
