@@ -4,11 +4,11 @@
     "launch_path": "/debug.html",
     "description": "WordPress for Firefox OS.",
     "icons": {
-	"30": "assets/icon30.png",
-        "48": "assets/icon48.png",
-	"60": "assets/icon60.png",
-        "64": "assets/icon64.png",
-       "128": "assets/icon128.png"
+	"30": "resources/icon30.png",
+        "48": "resources/icon48.png",
+	"60": "resources/icon60.png",
+        "64": "resources/icon64.png",
+       "128": "resources/icon128.png"
     },
     "developer": {
         "name": "Sayak Sarkar",
