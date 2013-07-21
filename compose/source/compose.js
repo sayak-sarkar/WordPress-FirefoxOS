@@ -89,10 +89,31 @@ enyo.kind({
 			]}
 		]}
 	],
+	publishTap: function (inSender, inEvent) {
+		this.payLoad = {};
+		this.payLoad.title = this.$.title.getValue();
+		this.payLoad.contentField = this.$.contentField.getValue();
+		console.log(this.payLoad);
+		return this.payLoad;
+	},
+	previewTap: function (inSender, inEvent) {
+		this.payLoad = {};
+		this.payLoad.title = this.$.title.getValue();
+		this.payLoad.contentField = this.$.contentField.getValue();
+		console.log(this.payLoad);
+		return this.payLoad;
+	},
+	saveDraftTap: function (inSender, inEvent) {
+		this.payLoad = {};
+		this.payLoad.title = this.$.title.getValue();
+		this.payLoad.contentField = this.$.contentField.getValue();
+		console.log(this.payLoad);
+		return this.payLoad;
+	},
 	backTap: function(inSender, inEvent) {
 		new wp.Posts().renderInto(document.body);
 	},
-	stub: function(inSender, inEvent) {
-		this.$.main.addContent("<br/>");
+	settingsTap: function(inSender, inEvent) {
+		alert("The Settings Panel is still under Construction.");
 	}
 });
