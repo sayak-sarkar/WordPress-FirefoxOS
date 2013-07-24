@@ -47,21 +47,26 @@
 }
 
 #refresh		{
-	margin-left: -1px;
-	margin-top: -4.5px;
+	margin-left: 8px;
+	margin-top: -3px;
+}
+
+#saveDraft		{
+	margin-right: -2px;
+	margin-top: -2px;
 }
 
 #newContent		{
-	margin-left: -1px;
-	margin-top: -5px;
+	margin-left: 6px;
+	margin-top: -1px;
+}
+
+#preview		{
+	margin-left: 1px;
+	margin-top: -1px;
 }
 
 #drawer		{
 	margin-left: 10.5px;
 	margin-top: -2px;
-}
-
-#back		{
-	margin-left: -5px;
-	margin-top: -5px;
 }
