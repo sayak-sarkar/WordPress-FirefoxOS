@@ -2,6 +2,12 @@
 	Put anything you reference with "url()" in ../assets/
 	This way, you can minify your application, and just remove the "source" folder for production
 */
+
+hr {
+	border-bottom:1px solid gray;
+	margin-bottom: 2px;
+}
+
 .nice-padding	{
 	padding: 15px;
 }
@@ -17,12 +23,39 @@
 	border-bottom:1px solid gray;
 }
 
+/*Menu*/
+.menuItemContainer {
+	height:50px;
+	color:#fff;
+	background-color: #777;
+	font-size:1.2em;
+	padding:10px;
+	border-bottom:1px solid gray;
+}
+
 /*Compose*/
 .toolbarButton	{
 	height: 32px;
 	margin: 6px;
 	width: 32px;
 	text-align: center;	
+}
+
+/*Settings*/
+.settings-labels {
+	color: #777;
+	font-weight: bold;
+	background: #fff;
+	font-size: 18px;
+	padding: 5px;
+}
+
+.date-labels {
+	color: #0099CC;
+	background: #fff;
+	font-weight: bold;
+	font-size: .75em;
+	padding: 5px;
 }
 
 .buttonIcon		{

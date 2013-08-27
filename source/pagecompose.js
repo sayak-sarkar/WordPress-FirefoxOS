@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "wp.Compose",
+	name: "wp.PageCompose",
 	kind: "FittableRows",
 	fit: true,
 	classes: "enyo-fit",
@@ -10,7 +10,7 @@ enyo.kind({
 			{kind: "onyx.Button", classes: "toolbarButton", ontap: "backTap", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "back",  src: "images/toolbar/back.png"},
 			]},
-			{content: "New Post", fit: true}, 
+			{content: "New Page", fit: true}, 
 			{kind: "onyx.Button", classes: "toolbarButton", ontap: "previewTap", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "preview", src: "images/toolbar/preview.png"}
 			]},
@@ -35,7 +35,7 @@ enyo.kind({
 
 			//Post Text Area Definition
 			{kind: "onyx.Groupbox", style: "margin-top: 15px; ", layoutKind:"FittableRowsLayout", fit: true, components: [
-
+/*
 				//WYSIWYG Toolbar Definition
 				{kind: "onyx.GroupboxHeader", components: [
 					{kind: "onyx.Button", classes: "toolbarButton", ontap: "boldTap", components: [
@@ -78,7 +78,7 @@ enyo.kind({
 						{kind: "onyx.Icon", classes: "buttonIcon", id: "imageButton",  src: "images/compose/icon_camera.png"}
 					]},
 				]},
-				
+				*/
 				//Main Scroller Definition
 				{kind: "enyo.Scroller", fit: true, horizontal: "hidden", layoutKind:"FittableRowsLayout", touch: true, thumb: true, components: [
 	
@@ -117,9 +117,9 @@ enyo.kind({
 		return this.payLoad;
 	},
 	backTap: function(inSender, inEvent) {
-		new wp.Posts().renderInto(document.body);
+		new wp.Pages().renderInto(document.body);
 	},
 	settingsTap: function(inSender, inEvent) {
-		alert("The Settings Panel is still under Construction.");
+		new wp.PageSettings().renderInto(document.body);
 	}
 });
