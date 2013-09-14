@@ -1,21 +1,20 @@
 enyo.kind({
-	name: "wp.Comments",
+	name: "wp.Reader",
 	kind: "FittableRows",
 	fit: true, classes: "enyo-fit",
 	components:[
 
 		//Header Toolbar Definition
-		{kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", classes: "toolbar", components: [
+		{name: "topPane", kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", classes: "toolbar", components: [
 			{kind: "onyx.Button", ontap: "drawerTap", style: "background-color: #21759b; width: 20px; margin-top: 10px; margin-left: -20px; margin-right: 10px; padding-top: 7px; padding-right: 5px;", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "drawer",  src: "images/toolbar/drawer.png"},
 			]},
 			{kind: "onyx.Icon", src: "images/toolbar/wp.png", style: "margin-left:5px; height: 38px; width: 38px;"},
-			{content: "Comments", fit: true}, 
+			{content: "Reader", fit: true}, 
 			{kind: "onyx.Button", classes: "toolbarButton", style: "background-color: #21759b;", ontap: "refresh", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "refresh",  src: "images/toolbar/refresh.png"}
 			]}
 		]},
-
 
 		{name: "menuContainer", kind: "FittableColumns", fit: true, components: [
 			{kind: "FittableColumns", components: [
@@ -50,36 +49,22 @@ enyo.kind({
 					],
 				},
 			]},
-			{name: "postContainer", style: "position: relative;", fit: true, components: [
-				//Comments List Definition
+			{name: "readerContainer", style: "position: relative;", fit: true, components: [
 				{
-					name: "commentList",
-					kind: "List",
 					fit: true,
-					count: 0,
-					onSetupItem: "setupCommentItem",
-					components: [
-						{
-							name: "commentItem",
-							classes: "listItemContainer",
-							ontap: "commentItemTap",
-							components: [
-								{
-									name: "commentTitle",
-									content: "Set Title..."
-								}
-							]
-						}
-					]
+					touch: true,
+					name: "iframe",
+					src: "http://wordpress.com/reader/mobile/v2/",
+					tag: "iframe",
+					classes: "frame",
+					onload: "frameload",
+					attributes: {
+						onload: enyo.bubbler
+					},
+					style: "background: white; height:98%; width:100%;"
 				}
-			]},
+			]}
 		]}
-	],
-	commentDatasource: [
-		{name: "Comment 1", gist: "First sample comment."},
-		{name: "Second Comment", gist: "This is the second sample comment."},
-		{name: "Third One", gist: "This one's the third one!"},
-		{name: "4th Comment", gist: "Phew! This is the last comment."}
 	],
 	menuDatasource: [
 		{name: "Reader"},
@@ -88,11 +73,10 @@ enyo.kind({
 		{name: "Pages",},
 		{name: "Comments"},
 		{name: "Stats"},
-		{name: "View Site"}
-	],
+		{name: "View Site"},
+	],	
 	create: function () {
 		this.inherited(arguments);
-		this.$.commentList.setCount(this.commentDatasource.length);
 		this.$.menuList.setCount(this.menuDatasource.length);
 	},
 	setupMenuItem: function (inSender, inEvent) {
@@ -116,17 +100,10 @@ enyo.kind({
 			alert("Functionality on its way!");	
 		};
 	},
-	setupCommentItem: function (inSender, inEvent) {
-		this.childName = this.commentDatasource[inEvent.index].name;
-		this.$.commentTitle.setContent(this.childName);
-	},
-	commentItemTap:function(inSender, inEvent) {
-		alert(this.commentDatasource[inEvent.index].gist);
-	},
-	drawerTap: function(inSender, inEvent) {
+	drawerTap: function (inSender, inEvent) {
 		this.$.menuDrawer.setOpen(!this.$.menuDrawer.open);
 	},
-	stub: function(inSender, inEvent) {
-		this.$.main.addContent("<br/>");
+	refresh: function () {
+		// reload iframe
 	}
-});
+})

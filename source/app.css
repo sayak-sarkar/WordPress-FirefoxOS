@@ -101,6 +101,13 @@ hr {
 	width: 300px;
 }
 
+.frame {
+	height: 100%;
+	width: 100%;
+	border: 0;
+	background-color: white;
+}
+
 #signupButton {
 	background-color: #2b88d9;
 	width: 280px;

@@ -112,6 +112,9 @@ enyo.kind({
 		else if (this.menuDatasource[inEvent.index].name == "Comments") {
 			new wp.Comments().renderInto(document.body);
 		}
+		else if (this.menuDatasource[inEvent.index].name == "Reader") {
+			new wp.Reader().renderInto(document.body);
+		}
 		else{
 			alert("Functionality on its way!");	
 		};

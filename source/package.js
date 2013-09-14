@@ -15,5 +15,6 @@ enyo.depends(
 	"pages.js",
 	"pagesettings.js",
 	"comments.js",
+	"reader.js",
 	"menu.js"
 );
