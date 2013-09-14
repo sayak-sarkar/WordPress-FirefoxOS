@@ -3,6 +3,11 @@ enyo.kind({
 	kind: "FittableRows",
 	fit: true, classes: "enyo-fit",
 	components:[
+		//Header Toolbar Definition
+		{kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", classes: "toolbar", components: [
+			{kind: "onyx.Icon", src: "images/toolbar/wp.png", style: "margin-left:20px; height: 38px; width: 38px;"},
+			{content: "Page Settings", fit: true}
+		]},
 		{name: "main", kind: "Scroller", classes: "nice-padding", fit: true, components: [
 			{name: "Status", layoutKind: "FittableColumnsLayout", components: [
 				{classes: "settings-labels", content: "Publish", style:"padding-top: 10px; padding-right: 60px;",  name: "publish-status"}, 
@@ -29,11 +34,11 @@ enyo.kind({
 					]
 				}
 			]},
-			{tag: "hr"},
+			{tag: "hr", style: "margin-top: 20px;"},
 			
 			//Password Input Box Definition
 			{
-				layoutKind: "FittableRowsLayout", components: [
+				layoutKind: "FittableRowsLayout", style: "margin-top: 10px;", components: [
 				 	{classes: "settings-labels", content: "Password", name: "password-input"},
 				 	{
 				 		layoutKind: "FittableColumnsLayout", components: [
@@ -44,11 +49,11 @@ enyo.kind({
 				 	}
 				]
 			},
-			{tag: "hr"},
+			{tag: "hr", style: "margin-top: 20px;"},
 
 			//Publish Date Selector Definition
 			{
-				kind: "FittableRows", classes: "onyx", components: [
+				kind: "FittableRows", classes: "onyx", style: "margin-top: 10px;", components: [
 					{content:"Publish Date & Time", classes:"settings-labels"},
 					{style:"background: #fff; padding-left: 20px;", fit:true, components: [
 						{name:"datePicker", kind:"onyx.DatePicker"}
@@ -58,10 +63,10 @@ enyo.kind({
 					]}
 				]
 			},
-
-			{kind: "onyx.Toolbar", layoutKind: "FittableColumnsLayout", style: "text-align:center;", components: [
-					{kind: "onyx.Button", content: "Save", style: "margin-bottom:0;", ontap: "saveTap"},
-					{kind: "onyx.Button", content: "Cancel", style: "margin-bottom:0;", ontap: "cancelTap"}
+			
+			{kind: "onyx.Toolbar", classes: "toolbar", layoutKind: "FittableColumnsLayout", style: "margin-top: 20px; text-align:center;", components: [
+					{kind: "onyx.Button", content: "Save", style: "background-color: #21759b; margin-bottom:0;", ontap: "saveTap"},
+					{kind: "onyx.Button", content: "Cancel", style: "background-color: #21759b; margin-bottom:0;", ontap: "cancelTap"}
 			]}
 
 

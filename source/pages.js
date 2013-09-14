@@ -5,18 +5,20 @@ enyo.kind({
 	components:[
 
 		//Header Toolbar Definition
-		{kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", components: [
-			{kind: "onyx.Button", classes: "toolbarButton", ontap: "drawerTap", components: [
+		{kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", classes: "toolbar", components: [
+			{kind: "onyx.Button", ontap: "drawerTap", style: "background-color: #21759b; width: 20px; margin-top: 10px; margin-left: -20px; margin-right: 10px; padding-top: 7px; padding-right: 5px;", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "drawer",  src: "images/toolbar/drawer.png"},
 			]},
+			{kind: "onyx.Icon", src: "images/toolbar/wp.png", style: "margin-left:5px; height: 38px; width: 38px;"},
 			{content: "Pages", fit: true}, 
-			{kind: "onyx.Button", classes: "toolbarButton", ontap: "refresh", components: [
+			{kind: "onyx.Button", classes: "toolbarButton", style: "background-color: #21759b;", ontap: "refresh", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "refresh",  src: "images/toolbar/refresh.png"}
 			]},
-			{kind: "onyx.Button", classes: "toolbarButton", ontap: "newPageTap", components: [
+			{kind: "onyx.Button", classes: "toolbarButton", style: "background-color: #21759b;", ontap: "newPageTap", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "newContent",  src: "images/toolbar/new.png"}
 			]}
 		]},
+
 
 		{name: "menuContainer", kind: "FittableColumns", fit: true, components: [
 			{kind: "FittableColumns", components: [

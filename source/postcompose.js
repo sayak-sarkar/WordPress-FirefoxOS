@@ -6,18 +6,19 @@ enyo.kind({
 	components:[
 
 		//Header Toolbar Definition
-		{kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", components: [
-			{kind: "onyx.Button", classes: "toolbarButton", ontap: "backTap", components: [
-				{kind: "onyx.Icon", classes: "buttonIcon", id: "back",  src: "images/toolbar/back.png"},
+		{kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", classes: "toolbar", components: [
+			{kind: "onyx.Button", ontap: "backTap", style: "background-color: #21759b; width: 10px; margin-top: 10px; margin-left: -10px; margin-right: 4px; padding-top: 7px; padding-right: 0px;", components: [
+				{kind: "onyx.Icon", src: "images/toolbar/back.png", ontap: "backTap", style: "height: 38px;"},
 			]},
-			{content: "New Post", fit: true}, 
-			{kind: "onyx.Button", classes: "toolbarButton", ontap: "previewTap", components: [
+			{kind: "onyx.Icon", src: "images/toolbar/wp.png", style: "margin-left:5px; height: 38px; width: 38px;"},
+			{content: "New Post"}, 
+			{kind: "onyx.Button", classes: "toolbarButton", ontap: "previewTap", style: "background-color: #21759b;", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "preview", src: "images/toolbar/preview.png"}
 			]},
-			{kind: "onyx.Button", classes: "toolbarButton", ontap: "saveDraftTap", components: [
+			{kind: "onyx.Button", classes: "toolbarButton", ontap: "saveDraftTap", style: "background-color: #21759b;", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "saveDraft",  src: "images/toolbar/save.png"}
 			]},
-			{kind: "onyx.Button", classes: "toolbarButton", ontap: "publishTap", components: [
+			{kind: "onyx.Button", classes: "toolbarButton", ontap: "publishTap", style: "background-color: #21759b;", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "publish",  src: "images/toolbar/publish.png"}
 			]}
 		]},
@@ -89,8 +90,8 @@ enyo.kind({
 				]},
 
 				//Settings Toolbar Definition
-				{kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", components: [
-					{kind: "onyx.Button", content: "Setings", fit: true, style: "margin-bottom:0;", ontap: "settingsTap"}
+				{kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", classes: "toolbar", components: [
+					{kind: "onyx.Button", content: "Setings", fit: true, style: "background-color: #21759b; margin-bottom:0;", ontap: "settingsTap"}
 				]}
 			]}
 		]}

@@ -3,6 +3,11 @@ enyo.kind({
 	kind: "FittableRows",
 	fit: true, classes: "enyo-fit",
 	components:[
+		//Header Toolbar Definition
+		{kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", classes: "toolbar", components: [
+			{kind: "onyx.Icon", src: "images/toolbar/wp.png", style: "margin-left:20px; height: 38px; width: 38px;"},
+			{content: "Post Settings", fit: true}
+		]},
 		{name: "main", kind: "Scroller", classes: "nice-padding", fit: true, components: [
 			{name: "Status", layoutKind: "FittableColumnsLayout", components: [
 				{classes: "settings-labels", content: "Publish", style:"padding-top: 10px; padding-right: 60px;",  name: "publish-status"}, 
@@ -89,11 +94,12 @@ enyo.kind({
 				]
 			},
 
-			{kind: "onyx.Toolbar", layoutKind: "FittableColumnsLayout", style: "text-align:center;", components: [
-					{kind: "onyx.Button", content: "Save", style: "margin-bottom:0;", ontap: "saveTap"},
-					{kind: "onyx.Button", content: "Cancel", style: "margin-bottom:0;", ontap: "cancelTap"}
-			]}
+			{kind: "onyx.Toolbar", classes: "toolbar", layoutKind: "FittableColumnsLayout", style: "text-align:center;", components: [
+					{kind: "onyx.Button", content: "Save", style: "background-color: #21759b; margin-bottom:0;", ontap: "saveTap"},
+					{kind: "onyx.Button", content: "Cancel", style: "background-color: #21759b; margin-bottom:0;", ontap: "cancelTap"}
+			]},
 
+			{tag: "br"}
 
 		]}
 	],

@@ -4,17 +4,15 @@
     "launch_path": "/index.html",
     "description": "WordPress for Firefox OS.",
     "icons": {
-	"30": "/images/icon30.png",
-        "48": "/images/icon48.png",
-	"60": "/images/icon60.png",
-        "64": "/images/icon64.png",
+	   "30": "/images/icon30.png",
+       "48": "/images/icon48.png",
+	   "60": "/images/icon60.png",
+       "64": "/images/icon64.png",
        "128": "/images/icon128.png"
     },
     "developer": {
         "name": "Sayak Sarkar",
         "url": "http://sayak.in"
     },
-    "default_locale": "en",
-    "permissions": {
-    }
+    "default_locale": "en"
 }
