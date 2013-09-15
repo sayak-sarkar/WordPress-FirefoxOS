@@ -91,7 +91,6 @@ enyo.kind({
 	],
 	menuDatasource: [
 		{name: "Reader"},
-		{name: "Notifications"},
 		{name: "Posts"},
 		{name: "Pages",},
 		{name: "Comments"},
@@ -118,7 +117,12 @@ enyo.kind({
 			new wp.Comments().renderInto(document.body);
 		}
 		else if (this.menuDatasource[inEvent.index].name == "Reader") {
-			new wp.Reader().renderInto(document.body);
+			window.open("http://wordpress.com/reader/mobile/v2/");
+			//new wp.Reader().renderInto(document.body);
+		}
+		else if (this.menuDatasource[inEvent.index].name == "Stats") {
+			window.open("http://wordpress.com/my-stats/");
+			//new wp.Stats().renderInto(document.body);
 		}
 		else{
 			alert("Functionality on its way!");	

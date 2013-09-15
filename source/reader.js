@@ -54,7 +54,7 @@ enyo.kind({
 					fit: true,
 					touch: true,
 					name: "iframe",
-					src: "http://wordpress.com/reader/mobile/v2/",
+					src: "https://wordpress.com/reader/mobile/v2/",
 					tag: "iframe",
 					classes: "frame",
 					onload: "frameload",

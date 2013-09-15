@@ -1,24 +1,20 @@
 enyo.kind({
-	name: "wp.Pages",
+	name: "wp.Stats",
 	kind: "FittableRows",
 	fit: true, classes: "enyo-fit",
 	components:[
 
 		//Header Toolbar Definition
-		{kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", classes: "toolbar", components: [
+		{name: "topPane", kind: "onyx.Toolbar", layoutKind:"FittableColumnsLayout", classes: "toolbar", components: [
 			{kind: "onyx.Button", ontap: "drawerTap", style: "background-color: #21759b; width: 20px; margin-top: 10px; margin-left: -20px; margin-right: 10px; padding-top: 7px; padding-right: 5px;", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "drawer",  src: "images/toolbar/drawer.png"},
 			]},
 			{kind: "onyx.Icon", src: "images/toolbar/wp.png", style: "margin-left:5px; height: 38px; width: 38px;"},
-			{content: "Pages", fit: true}, 
+			{content: "Reader", fit: true}, 
 			{kind: "onyx.Button", classes: "toolbarButton", style: "background-color: #21759b;", ontap: "refresh", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "refresh",  src: "images/toolbar/refresh.png"}
-			]},
-			{kind: "onyx.Button", classes: "toolbarButton", style: "background-color: #21759b;", ontap: "newPageTap", components: [
-				{kind: "onyx.Icon", classes: "buttonIcon", id: "newContent",  src: "images/toolbar/new.png"}
 			]}
 		]},
-
 
 		{name: "menuContainer", kind: "FittableColumns", fit: true, components: [
 			{kind: "FittableColumns", components: [
@@ -34,7 +30,7 @@ enyo.kind({
 							name: "menuList",
 							kind: "List",
 							onSetupItem: "setupMenuItem",
-							style: "width: 150px;",
+							style: "background-color: grey; width: 150px;",
 							touch: "true",
 							components: [
 								{
@@ -53,48 +49,34 @@ enyo.kind({
 					],
 				},
 			]},
-			{name: "postContainer", style: "position: relative;", fit: true, components: [
-				//Pages List Definition
+			{name: "readerContainer", style: "position: relative;", fit: true, components: [
 				{
-					name: "pageList",
-					kind: "List",
 					fit: true,
-					count: 0,
-					onSetupItem: "setupPageItem",
-					components: [
-						{
-							name: "pageItem",
-							classes: "listItemContainer",
-							ontap: "pageItemTap",
-							components: [
-								{
-									name: "pageTitle",
-									content: "Set Title..."
-								}
-							]
-						}
-					]
+					touch: true,
+					name: "iframe",
+					src: "https://wordpress.com/reader/mobile/v2/",
+					tag: "iframe",
+					classes: "frame",
+					onload: "frameload",
+					attributes: {
+						onload: enyo.bubbler
+					},
+					style: "background: white; height:98%; width:100%;"
 				}
-			]},
+			]}
 		]}
-	],
-	pageDatasource: [
-		{name: "Sayak Sarkar - cv", gist: "Here’s my CV!"},
-		{name: "GSoC 2012", gist: "bn-Disha.mim"},
-		{name: "GSoC 2013", gist: "Porting WordPress for WebOS to Firefox OS"},
-		{name: "About Me", gist: "http://sayak.in"}
 	],
 	menuDatasource: [
 		{name: "Reader"},
+		{name: "Notifications"},
 		{name: "Posts"},
 		{name: "Pages",},
 		{name: "Comments"},
 		{name: "Stats"},
-		{name: "View Site"}
+		{name: "View Site"},
 	],	
 	create: function () {
 		this.inherited(arguments);
-		this.$.pageList.setCount(this.pageDatasource.length);
 		this.$.menuList.setCount(this.menuDatasource.length);
 	},
 	setupMenuItem: function (inSender, inEvent) {
@@ -123,20 +105,10 @@ enyo.kind({
 			alert("Functionality on its way!");	
 		};
 	},
-	setupPageItem: function (inSender, inEvent) {
-		this.childName = this.pageDatasource[inEvent.index].name;
-		this.$.pageTitle.setContent(this.childName);
-	},
-	pageItemTap:function(inSender, inEvent) {
-		alert(this.pageDatasource[inEvent.index].gist);
-	},
-	newPageTap: function(inSender, inEvent) {
-		new wp.PageCompose().renderInto(document.body);
-	},
-	drawerTap: function(inSender, inEvent) {
+	drawerTap: function (inSender, inEvent) {
 		this.$.menuDrawer.setOpen(!this.$.menuDrawer.open);
 	},
-	stub: function(inSender, inEvent) {
-		this.$.main.addContent("<br/>");
+	refresh: function () {
+		// reload iframe
 	}
-});
+})
