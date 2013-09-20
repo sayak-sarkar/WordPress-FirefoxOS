@@ -13,9 +13,9 @@ enyo.kind({
 		]},
 		
 
-		{kind: "enyo.Image", classes: "logoBanner", src: "images/icon128.png", style: "margin-top: 20px;"},
+		{kind: "enyo.Image", classes: "logoBanner", src: "images/icon128.png", style: "margin-top: 10px;"},
 		
-		{content: "ACCOUNT DETAILS", style: "color: grey; margin-left: 20px; margin-top: 1px; margin-bottom: 20px; font-size: 12px; font-weight: bold;"},
+		{content: "ACCOUNT DETAILS", style: "color: grey; margin-left: 20px; margin-bottom: -10px; font-size: 12px; font-weight: bold;"},
 		{kind: "onyx.Groupbox", style: "margin-bottom: 10px;", components: [
 			{kind: "Input", name: "blogurl", classes: "addExternalInputBox", placeholder: " Blog URL", type: "url", selectOnFocus: true},
 			{kind: "Input", name: "username", classes: "addExternalInputBox", placeholder: " Username", type: "text", selectOnFocus: true},
@@ -26,7 +26,9 @@ enyo.kind({
 		{kind: "onyx.Button", style: "margin-left: 20px;", content: "Optional Settings", ontap: "optionalSettings"},
 		{tag: "br"},
 		*/
-		{kind: "onyx.Button", style: "margin-top: 5px; margin-left: 100px;", content: "Sign In", ontap: "signIn"},
+		{kind: "onyx.Button", style: "margin-top: 2px; margin-left: 100px;", content: "Sign In", ontap: "signIn"},
+		{tag: "br"},
+		{id: "status", style: "margin-top: 10px; margin-left: 20px; font-size: 12px; font-weight: bold;", content: ""},
 
 		/*
 		{content: "Don't yet have a blog?", style: "margin-top: 10px; text-align: center;"},

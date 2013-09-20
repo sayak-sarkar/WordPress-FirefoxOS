@@ -3,7 +3,20 @@
     xhr.open('POST', url);
     
     xhr.onreadystatechange = function() {
-      console.log("Readystate: ", xhr.readyState)
+      console.log("Readystate: ", xhr.readyState);
+      if (xhr.readyState == 1) {
+        var reqStatus = "Please wait while we process your request!";
+      } 
+      else if (xhr.readyState == 2) {
+        var reqStatus = "Status available..";  
+      } 
+      else if (xhr.readyState == 3) {
+        var reqStatus = "Downloading stuff....";  
+      } 
+      else if(xhr.readyState == 4) {
+        var reqStatus = "Done!!!!";  
+      }
+      document.getElementById("status").innerHTML = reqStatus;
     }
     
     xhr.onload = function() {
