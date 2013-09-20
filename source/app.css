@@ -101,6 +101,13 @@ hr {
 	width: 300px;
 }
 
+.logoBanner{
+	padding-left: 96px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+	/*width: 128px;*/
+}
+
 .frame {
 	height: 100%;
 	width: 100%;
