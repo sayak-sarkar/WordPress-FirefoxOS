@@ -27,12 +27,13 @@
       handleError(xhr);
     };
     
-    xhr.send(data);
+    xhr.send(data);    
     return xhr;
   }
 
   function handleSuccess(xhr) {
-    this.document.write(xhr.responseText);
+    var respText = xhr.responseText;
+    new wp.Posts().renderInto(document.body);
     var json = XMLRPCParser.parse(xhr.response);
     console.log(json);
   }
