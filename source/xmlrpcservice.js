@@ -5,16 +5,22 @@
     xhr.onreadystatechange = function() {
       console.log("Readystate: ", xhr.readyState);
       if (xhr.readyState == 1) {
-        var reqStatus = "Please wait while we process your request!";
-      } 
-      else if (xhr.readyState == 2) {
-        var reqStatus = "Status available..";  
-      } 
+        document.getElementById("SignInButton").style.visibility="hidden";
+        document.getElementById("status").style.color="#000000";
+        var reqStatus = "Signing in...";
+        document.getElementById("spinner").style.visibility="visible";
+      }
+       else if (xhr.readyState == 2) {
+        var reqStatus = "Status available..";
+      }
       else if (xhr.readyState == 3) {
-        var reqStatus = "Downloading stuff....";  
+        var reqStatus = "Downloading stuff....";
       } 
       else if(xhr.readyState == 4) {
-        var reqStatus = "Done!!!!";  
+        var reqStatus = "<br/><br/>Invalid Username/Password.";
+        document.getElementById("SignInButton").style.visibility="visible";
+        document.getElementById("status").style.color="red";
+        document.getElementById("spinner").style.visibility="hidden";
       }
       document.getElementById("status").innerHTML = reqStatus;
     }
@@ -32,9 +38,19 @@
   }
 
   function handleSuccess(xhr) {
-    var respText = xhr.responseText;
-    new wp.Posts().renderInto(document.body);
-    var json = XMLRPCParser.parse(xhr.response);
+    
+    //var respText = xhr.responseText;      
+     
+    var parser = new XMLRPCParser(xhr.response);
+    var json = parser.toObject();
+    if (parser.fault) {
+      /*alert("Parser Fault");
+      console.log(xhr.response);*/
+      return;
+    }
+    else {
+      new wp.Posts().renderInto(document.body);
+    }
     console.log(json);
   }
 
@@ -46,7 +62,6 @@
 XMLRPCBuilder = function(methodName, methodParams){
   this.methodName = methodName;
   this.methodParams = methodParams;
-    
 }
 
 XMLRPCBuilder.marshal = function(methodName, methodParams){

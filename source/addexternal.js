@@ -26,9 +26,10 @@ enyo.kind({
 		{kind: "onyx.Button", style: "margin-left: 20px;", content: "Optional Settings", ontap: "optionalSettings"},
 		{tag: "br"},
 		*/
-		{kind: "onyx.Button", style: "margin-top: 2px; margin-left: 100px;", content: "Sign In", ontap: "signIn"},
+		{id: "SignInButton", kind: "onyx.Button", style: "margin-top: 2px; margin-left: 100px;", content: "Sign In", ontap: "signIn"},
 		{tag: "br"},
-		{id: "status", style: "margin-top: 10px; margin-left: 20px; font-size: 12px; font-weight: bold;", content: ""},
+		{id: "status", style: "margin-top: -30px; text-align: center; font-size: 16px;", content: ""},
+		{id: "spinner", kind: "onyx.Spinner", classes: "onyx-light", style: "margin-left: 125px; visibility: hidden;"}
 
 		/*
 		{content: "Don't yet have a blog?", style: "margin-top: 10px; text-align: center;"},
@@ -42,7 +43,7 @@ enyo.kind({
 	},
 
 	signIn: function () {
-		var url = this.$.blogurl.getValue();
+		var url = fixURL(this.$.blogurl.getValue()) + "/xmlrpc.php";
 		var username = this.$.username.getValue();
 		var password = this.$.password.getValue();	
 		var params = [username, password];
@@ -54,4 +55,14 @@ enyo.kind({
 	optionalSettings: function() {
 		new wp.OptionalSettings().renderInto(document.body);
 	}
-})
+});
+
+function fixURL(url) {
+    if(url.substr(-1) == '/') {
+        return url.substr(0, url.length - 1);
+    }
+    if(url.match('^http://')){
+    	url = url.replace('http://','https://')
+	}
+    return url;
+}
