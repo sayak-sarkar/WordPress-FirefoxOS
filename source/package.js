@@ -16,5 +16,6 @@ enyo.depends(
 	"pagesettings.js",
 	"comments.js",
 	"reader.js",
-	"menu.js"
+	"menu.js",
+	"xmlrpcservice.js"
 );

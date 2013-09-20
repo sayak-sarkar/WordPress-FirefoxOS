@@ -4,9 +4,9 @@
     "launch_path": "/index.html",
     "description": "WordPress for Firefox OS.",
     "icons": {
-	   "30": "/images/icon30.png",
+	     "30": "/images/icon30.png",
        "48": "/images/icon48.png",
-	   "60": "/images/icon60.png",
+	     "60": "/images/icon60.png",
        "64": "/images/icon64.png",
        "128": "/images/icon128.png"
     },
@@ -14,5 +14,13 @@
         "name": "Sayak Sarkar",
         "url": "http://sayak.in"
     },
+    "installs_allowed_from": ["*"],
+    "permissions": {
+      "systemXHR": {
+        "description":"Required for remote syncing via XMLRPC."
+      }
+    },
+    "type": "privileged",
+    "orientation": "portrait-primary",
     "default_locale": "en"
 }
