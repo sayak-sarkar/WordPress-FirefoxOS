@@ -98,6 +98,7 @@ enyo.kind({
 		{name: "View Site"},
 	],	
 	create: function () {
+		getPosts();
 		this.inherited(arguments);
 		this.$.postList.setCount(this.postDatasource.length);
 		this.$.menuList.setCount(this.menuDatasource.length);
@@ -145,3 +146,56 @@ enyo.kind({
 		this.$.main.addContent("<br/>");
 	}
 });
+
+function getPosts () {
+	var params = [sessvars.blogid, sessvars.username, sessvars.password];
+	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.getPosts", params);
+	//console.log(xmlrpc_data);
+	makePostRequest(sessvars.url, xmlrpc_data);
+}
+
+
+function makePostRequest(url, data) {
+	var xhr = new XMLHttpRequest({mozSystem:true});
+	xhr.open('POST', url);
+	
+	xhr.onreadystatechange = function() {
+		console.log("Readystate: ", xhr.readyState)
+	}
+	
+	xhr.onload = function() {
+		handlePostSuccess(xhr);
+	};
+	
+	xhr.onerror = function() {
+		handlePostError(xhr);
+	};
+	
+	xhr.send(data);
+	return xhr;
+}
+
+function handlePostSuccess(xhr) {
+	//document.getElementById("results").innerHTML = xhr.responseText;
+
+	var parser = new XMLRPCParser(xhr.response);
+	var json = parser.toObject();
+	var fault = parser.fault;
+	console.log(fault);
+
+	if (json instanceof Array) {
+		for (var i = 0; i < json.length; i++) {
+			var obj = json[i];
+			for(var key in obj) {
+				console.log(key, obj[key]);
+			}
+		}
+	} else {
+		 console.log(json);
+	}
+	
+}
+
+function handlePostError(xhr) {
+//	document.getElementById("results").innerHTML = "Error: " + xhr.statusText;
+}

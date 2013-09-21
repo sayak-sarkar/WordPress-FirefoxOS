@@ -37,24 +37,24 @@ enyo.kind({
 		*/
 	],
 
-	signUp: function () {
+	/*signUp: function () {
 		new wp.Signup().renderInto(document.body);
 		//window.open("https://en.wordpress.com/signup/?ref=wp-android");
-	},
+	},*/
 
 	signIn: function () {
-		var url = fixURL(this.$.blogurl.getValue()) + "/xmlrpc.php";
-		var username = this.$.username.getValue();
-		var password = this.$.password.getValue();	
-		var params = [username, password];
+		sessvars.inputUrl = fixURL(this.$.blogurl.getValue());
+		sessvars.url = fixURL(this.$.blogurl.getValue()) + "/xmlrpc.php";
+		sessvars.username = this.$.username.getValue();
+		sessvars.password = this.$.password.getValue();	
+		var params = [sessvars.username, sessvars.password];
 		var xmlrpc_data =  XMLRPCBuilder.marshal("wp.getUsersBlogs", params);
-		makeRequest(url, xmlrpc_data);
-		//new wp.Posts().renderInto(document.body);
+		makeLoginRequest(sessvars.url, xmlrpc_data);
 	},
 
-	optionalSettings: function() {
+	/*optionalSettings: function() {
 		new wp.OptionalSettings().renderInto(document.body);
-	}
+	}*/
 });
 
 function fixURL(url) {
@@ -65,4 +65,91 @@ function fixURL(url) {
     	url = url.replace('http://','https://')
 	}
     return url;
+}
+
+function makeLoginRequest(url, data) {
+	var xhr = new XMLHttpRequest({mozSystem:true});
+   	xhr.open('POST', url);
+    
+    xhr.onreadystatechange = function() {
+    	console.log("Readystate: ", xhr.readyState);
+      	if (xhr.readyState == 1) {
+	        document.getElementById("SignInButton").style.visibility="hidden";
+	        document.getElementById("status").style.color="#000000";
+	        var reqStatus = "Signing in...";
+	        document.getElementById("spinner").style.visibility="visible";
+      	}
+       	else if (xhr.readyState == 2) {
+        	var reqStatus = "Status available..";
+      	}
+	    else if (xhr.readyState == 3) {
+	        var reqStatus = "Downloading stuff....";
+	    } 
+      	else if(xhr.readyState == 4) {
+	    	var reqStatus = "<br/><br/>Invalid Username/Password.";
+	        document.getElementById("SignInButton").style.visibility="visible";
+	        document.getElementById("status").style.color="red";
+	        document.getElementById("spinner").style.visibility="hidden";
+      	}
+      	document.getElementById("status").innerHTML = reqStatus;
+    }
+    
+    xhr.onload = function() {
+    	handleLoginSuccess(xhr);
+    };
+    
+    xhr.onerror = function() {
+    	handleLoginError(xhr);
+    };
+    
+    xhr.send(data);    
+    return xhr;
+}
+
+function handleLoginSuccess(xhr) {     
+     
+    var parser = new XMLRPCParser(xhr.response);
+    var json = parser.toObject();
+    var fault = parser.fault;
+    //console.log(fault);
+
+    if (fault) {
+    	/*alert("Parser Fault");
+    	console.log(xhr.response);*/
+    	return;
+    }
+    else {
+    	if (json instanceof Array) {
+			for (var i = 0; i < json.length; i++) {
+				var obj = json[i];
+				for(var key in obj) {
+					if (key == "url") {
+						sessvars.urlResponse = fixURL(obj[key]);
+						//alert("sessvars.urlResponse: "+sessvars.urlResponse);
+					}
+					else if (sessvars.urlResponse == sessvars.inputUrl) {
+						if (key == "blogid") {
+							sessvars.blogid = obj[key];
+							//alert("sessvars.blogid: "+sessvars.blogid);
+						}
+						else if (key == "blogName") {
+							sessvars.blogName = obj[key];
+							//alert("sessvars.blogName: "+sessvars.blogName);
+						}
+					}
+					//console.log(key, obj[key]);
+				}
+			}
+		} 
+		else {
+			console.log(json);
+		}
+
+    	new wp.Posts().renderInto(document.body);
+    }
+    //console.log(json);
+}
+
+function handleLoginError(xhr) {
+  	alert("Error: " + xhr.statusText);
 }

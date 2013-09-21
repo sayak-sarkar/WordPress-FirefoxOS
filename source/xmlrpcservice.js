@@ -1,63 +1,3 @@
-  function makeRequest(url, data) {
-    var xhr = new XMLHttpRequest({mozSystem:true});
-    xhr.open('POST', url);
-    
-    xhr.onreadystatechange = function() {
-      console.log("Readystate: ", xhr.readyState);
-      if (xhr.readyState == 1) {
-        document.getElementById("SignInButton").style.visibility="hidden";
-        document.getElementById("status").style.color="#000000";
-        var reqStatus = "Signing in...";
-        document.getElementById("spinner").style.visibility="visible";
-      }
-       else if (xhr.readyState == 2) {
-        var reqStatus = "Status available..";
-      }
-      else if (xhr.readyState == 3) {
-        var reqStatus = "Downloading stuff....";
-      } 
-      else if(xhr.readyState == 4) {
-        var reqStatus = "<br/><br/>Invalid Username/Password.";
-        document.getElementById("SignInButton").style.visibility="visible";
-        document.getElementById("status").style.color="red";
-        document.getElementById("spinner").style.visibility="hidden";
-      }
-      document.getElementById("status").innerHTML = reqStatus;
-    }
-    
-    xhr.onload = function() {
-      handleSuccess(xhr);
-    };
-    
-    xhr.onerror = function() {
-      handleError(xhr);
-    };
-    
-    xhr.send(data);    
-    return xhr;
-  }
-
-  function handleSuccess(xhr) {
-    
-    //var respText = xhr.responseText;      
-     
-    var parser = new XMLRPCParser(xhr.response);
-    var json = parser.toObject();
-    if (parser.fault) {
-      /*alert("Parser Fault");
-      console.log(xhr.response);*/
-      return;
-    }
-    else {
-      new wp.Posts().renderInto(document.body);
-    }
-    console.log(json);
-  }
-
-  function handleError(xhr) {
-    alert("Error: " + xhr.statusText);
-  }
-
 
 XMLRPCBuilder = function(methodName, methodParams){
   this.methodName = methodName;
@@ -318,7 +258,7 @@ XMLRPCParser.prototype.parse = function(node){
  /**
 * <p>Convert a GMT date to ISO8601.</p>
 * @return
-*		<code>String</code> with an ISO8601 date.
+*   <code>String</code> with an ISO8601 date.
 */
 // Date.prototype.toIso8601 = function() {
 //   console.log("Encoding date", this, this.getUTCFullYear);
@@ -334,9 +274,9 @@ XMLRPCParser.prototype.parse = function(node){
 /**
 * <p>Convert ISO8601 date to GMT.</p>
 * @param value
-*		ISO8601 date.
+*   ISO8601 date.
 * @return
-*		GMT date.
+*   GMT date.
 */
 Date.fromIso8601 = function(value) {
   year = value.substr(0,4); 
@@ -345,14 +285,14 @@ Date.fromIso8601 = function(value) {
   hour = value.substr(9,2); 
   minute = value.substr(12,2); 
   sec = value.substr(15,2);
-	var d = new Date(Date.UTC(year, month - 1, day, hour, minute, sec, 0));
+  var d = new Date(Date.UTC(year, month - 1, day, hour, minute, sec, 0));
   return d;
 };
 
 /** 
  * Base64
  */
-function Base64(value) {	
+function Base64(value) {  
   Base64.prototype.bytes = value;
 };
 
@@ -362,7 +302,7 @@ Base64.CHAR_MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012345678
 /**
 * <p>Encode the object bytes using base64 algorithm.</p>
 * @return
-*		Encoded string.
+*   Encoded string.
 */
 Base64.prototype.encode = function() {
   if(typeof btoa == "function")
@@ -370,22 +310,22 @@ Base64.prototype.encode = function() {
   else {
     var _byte = new Array(), _char = new Array(), _result = new Array();
     var j = 0;
-	for (var i = 0; i < this.bytes.length; i += 3) {
+  for (var i = 0; i < this.bytes.length; i += 3) {
       _byte[0] = this.bytes.charCodeAt(i);
-	  _byte[1] = this.bytes.charCodeAt(i + 1);
-	  _byte[2] = this.bytes.charCodeAt(i + 2);
-	  _char[0] = _byte[0] >> 2;
-	  _char[1] = ((_byte[0] & 3) << 4) | (_byte[1] >> 4);
-	  _char[2] = ((_byte[1] & 15) << 2) | (_byte[2] >> 6);
-      _char[3] = _byte[2] & 63;		
-	  if(isNaN(_byte[1]))
-	    _char[2] = _char[3] = 64;
-	  else 
-	  if(isNaN(_byte[2]))
-	    _char[3] = 64;
-	  _result[j++] = Base64.CHAR_MAP.charAt(_char[0]) + Base64.CHAR_MAP.charAt(_char[1]) 
-				   + Base64.CHAR_MAP.charAt(_char[2]) + Base64.CHAR_MAP.charAt(_char[3]);
-	}	 
+    _byte[1] = this.bytes.charCodeAt(i + 1);
+    _byte[2] = this.bytes.charCodeAt(i + 2);
+    _char[0] = _byte[0] >> 2;
+    _char[1] = ((_byte[0] & 3) << 4) | (_byte[1] >> 4);
+    _char[2] = ((_byte[1] & 15) << 2) | (_byte[2] >> 6);
+      _char[3] = _byte[2] & 63;   
+    if(isNaN(_byte[1]))
+      _char[2] = _char[3] = 64;
+    else 
+    if(isNaN(_byte[2]))
+      _char[3] = 64;
+    _result[j++] = Base64.CHAR_MAP.charAt(_char[0]) + Base64.CHAR_MAP.charAt(_char[1]) 
+           + Base64.CHAR_MAP.charAt(_char[2]) + Base64.CHAR_MAP.charAt(_char[3]);
+  }  
     this.bytes = _result.join("");
   }
   return this.bytes;
@@ -394,31 +334,31 @@ Base64.prototype.encode = function() {
 /**
 * <p>Decode the object bytes using base64 algorithm.</p>
 * @return
-*		Decoded string.
+*   Decoded string.
 */
 Base64.prototype.decode = function() {
-  if(typeof atob == "function")	
+  if(typeof atob == "function") 
     this.bytes = atob(this.bytes);
   else {
-	var _byte = new Array(), _char = new Array(), _result = new Array();
-	var j = 0;
-	while ((this.bytes.length % 4) != 0)
-	  this.bytes += "=";
+  var _byte = new Array(), _char = new Array(), _result = new Array();
+  var j = 0;
+  while ((this.bytes.length % 4) != 0)
+    this.bytes += "=";
     for (var i = 0; i < this.bytes.length; i += 4) {
-	  _char[0] = Base64.CHAR_MAP.indexOf(this.bytes.charAt(i));
-	  _char[1] = Base64.CHAR_MAP.indexOf(this.bytes.charAt(i + 1));
-	  _char[2] = Base64.CHAR_MAP.indexOf(this.bytes.charAt(i + 2));
-	  _char[3] = Base64.CHAR_MAP.indexOf(this.bytes.charAt(i + 3));
-	  _byte[0] = (_char[0] << 2) | (_char[1] >> 4);
-	  _byte[1] = ((_char[1] & 15) << 4) | (_char[2] >> 2);
-	  _byte[2] = ((_char[2] & 3) << 6) | _char[3];
-	  _result[j++] = String.fromCharCode(_byte[0]);
-	  if(_char[2] != 64) 
-	    _result[j++] = String.fromCharCode(_byte[1]);
-	  if(_char[3] != 64) 
-	    _result[j++] = String.fromCharCode(_byte[2]);	
-	}
-	this.bytes = _result.join("");
+    _char[0] = Base64.CHAR_MAP.indexOf(this.bytes.charAt(i));
+    _char[1] = Base64.CHAR_MAP.indexOf(this.bytes.charAt(i + 1));
+    _char[2] = Base64.CHAR_MAP.indexOf(this.bytes.charAt(i + 2));
+    _char[3] = Base64.CHAR_MAP.indexOf(this.bytes.charAt(i + 3));
+    _byte[0] = (_char[0] << 2) | (_char[1] >> 4);
+    _byte[1] = ((_char[1] & 15) << 4) | (_char[2] >> 2);
+    _byte[2] = ((_char[2] & 3) << 6) | _char[3];
+    _result[j++] = String.fromCharCode(_byte[0]);
+    if(_char[2] != 64) 
+      _result[j++] = String.fromCharCode(_byte[1]);
+    if(_char[3] != 64) 
+      _result[j++] = String.fromCharCode(_byte[2]); 
+  }
+  this.bytes = _result.join("");
   }
   return this.bytes;
 };
