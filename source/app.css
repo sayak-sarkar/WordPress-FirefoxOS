@@ -14,12 +14,13 @@ hr {
 
 /* Posts */
 .listItemContainer {
-	height:50px;
 	color:#777;
 	font-weight: bold;
 	background: #fff;
 	font-size:1.2em;
-	padding:10px;
+	padding-top: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
 	border-bottom:1px solid gray;
 }
 
@@ -30,7 +31,7 @@ hr {
 	background-color: #777;
 	font-size:1.2em;
 	padding:10px;
-	border-bottom:1px solid gray;
+	/*border-bottom:1px solid gray;*/
 }
 
 /*Compose*/

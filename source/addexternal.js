@@ -72,7 +72,7 @@ function makeLoginRequest(url, data) {
    	xhr.open('POST', url);
     
     xhr.onreadystatechange = function() {
-    	console.log("Readystate: ", xhr.readyState);
+    	//console.log("Readystate: ", xhr.readyState);
       	if (xhr.readyState == 1) {
 	        document.getElementById("SignInButton").style.visibility="hidden";
 	        document.getElementById("status").style.color="#000000";

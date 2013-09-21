@@ -67,8 +67,18 @@ enyo.kind({
 							ontap: "listItemTap",
 							components: [
 								{
+									name: "postId",
+									content: "",
+									style: "visibility: hidden;"
+								},
+								{
 									name: "postTitle",
 									content: "Set Title..."
+								},
+								{
+									name: "postStatus",
+									content: "Set Status...",
+									style: "text-align: right; font-size: 14px; font-weight: none; margin-top: 2px; padding-bottom: 0;"
 								}
 							]
 						}
