@@ -18,5 +18,6 @@ enyo.depends(
 	"comments.js",
 	"reader.js",
 	"menu.js",
-	"xmlrpcservice.js"
+	"xmlrpcservice.js",
+	"jquery-1.10.2.min"
 );

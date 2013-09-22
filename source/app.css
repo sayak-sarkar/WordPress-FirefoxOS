@@ -17,6 +17,7 @@ hr {
 
 /* Posts */
 .listItemContainer {
+	min-height: 60px;
 	color:#777;
 	font-weight: bold;
 	background: #fff;
@@ -122,16 +123,20 @@ hr {
 	text-align: right; 
 	font-size: 14px; 
 	font-weight: none; 
-	margin-top: 2px; 
-	padding-bottom: 0;
+	margin-top: 5px; 
+	margin-left: 225px;
 }
 
 .itemTitle {
-	margin-top: -19px;
+	text-align: left;
+	margin-top: -16px;
 	min-height: 50px;
+	padding-right: 5px;
 }
 
 .itemId {
+	width: 1px;
+	height: 1px;
 	visibility: hidden;
 }
 
