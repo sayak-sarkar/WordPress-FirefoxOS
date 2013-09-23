@@ -61,7 +61,7 @@ function publishPage() {
 	};
 
 	var params = [sessvars.blogid, sessvars.username, sessvars.password, content];
-	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPost", params);
+	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPage", params);
 	
 	makeNewPageRequest(sessvars.url, xmlrpc_data);		
 }
@@ -75,7 +75,7 @@ function draftPage() {
 	};
 
 	var params = [sessvars.blogid, sessvars.username, sessvars.password, content];
-	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPost", params);
+	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPage", params);
 	
 	makeNewPageRequest(sessvars.url, xmlrpc_data);		
 }
