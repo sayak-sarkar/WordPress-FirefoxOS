@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "wp.Posts",
-	kind: "FittableRows",
-	fit: true,classes: "enyo-fit",
+	kind: "Scroller",
+	touch: true,
 	components:[
 
 		//Header Toolbar Definition
@@ -19,43 +19,47 @@ enyo.kind({
 			]}
 		]},
 
-		{name: "menuContainer", kind: "FittableColumns", fit: true, components: [
-			{kind: "FittableColumns", components: [
-				{
-					name: "menuDrawer",
-					kind: "onyx.Drawer",
-					layoutKind: "FittableRowsLayout",
-					style: "height: 100%;",
-					orient: "h",
-					open: false,
-					components: [
-						{
-							name: "menuList",
-							kind: "List",
-							onSetupItem: "setupMenuItem",
-							style: "background-color: grey; width: 150px;",
-							touch: "true",
-							components: [
-								{
-									name: "menuItem",
-									classes: "menuItemContainer",
-									ontap: "menuItemTap",
-									components: [
-										{
-											name: "menuTitle",
-											content: "Set Title..."
-										}
-									]
-								}
-							]
-						},
-					],
-				},
-			]},
-			{name: "postContainer", kind: "Scroller", style: "position: relative;", components: [
-				{id: "outerContainer", tag: "div"}
+		{tag: "div", id: "title", style: "margin-left: 5px; margin-right: 5px;"},
+		{tag: "div", id: "postBody", style: "margin-left: 5px; margin-right: 5px;"},
 
-			]},
+		{tag: "div", id: "contents", components:[
+			{name: "menuContainer", id: "menuContainer", kind: "FittableColumns", fit: true, components: [
+				{kind: "FittableColumns", components: [
+					{
+						name: "menuDrawer",
+						kind: "onyx.Drawer",
+						layoutKind: "FittableRowsLayout",
+						style: "height: 100%;",
+						orient: "h",
+						open: false,
+						components: [
+							{
+								name: "menuList",
+								kind: "List",
+								onSetupItem: "setupMenuItem",
+								style: "background-color: grey; width: 150px;",
+								touch: "true",
+								components: [
+									{
+										name: "menuItem",
+										classes: "menuItemContainer",
+										ontap: "menuItemTap",
+										components: [
+											{
+												name: "menuTitle",
+												content: "Set Title..."
+											}
+										]
+									}
+								]
+							},
+						],
+					},
+				]},
+				{name: "postContainer", kind: "Scroller", style: "position: relative;", components: [
+					{id: "outerContainer", tag: "div"}
+				]}
+			]}
 		]}
 	],
 	menuDatasource: [
@@ -69,7 +73,6 @@ enyo.kind({
 	create: function () {
 		getPosts();
 		this.inherited(arguments);
-		/*this.$.postList.setCount(this.postDatasource.length);*/
 		this.$.menuList.setCount(this.menuDatasource.length);
 	},
 	setupMenuItem: function (inSender, inEvent) {
@@ -96,14 +99,7 @@ enyo.kind({
 		}
 		else{
 			alert("Functionality on its way!");	
-		};
-	},
-	/*setupPostItem: function (inSender, inEvent) {
-		this.childName = this.postDatasource[inEvent.index].name;
-		this.$.postTitle.setContent(this.childName);
-	},*/
-	listItemTap:function(inSender, inEvent) {
-		/*alert(this.postDatasource[inEvent.index].gist);*/
+		}
 	},
 	newPostTap: function(inSender, inEvent) {
 		new wp.PostCompose().renderInto(document.body);
@@ -119,16 +115,8 @@ enyo.kind({
 function getPosts () {
 	var params = [sessvars.blogid, sessvars.username, sessvars.password];
 	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.getPosts", params);
-	//console.log(xmlrpc_data);
 	makePostRequest(sessvars.url, xmlrpc_data);
 }
-
-/*function getPost (post_id) {
-	var params = [sessvars.blogid, sessvars.username, sessvars.password, post_id];
-	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.getPosts", params);
-	//console.log(xmlrpc_data);
-	makePostRequest(sessvars.url, xmlrpc_data);
-}*/
 
 function makePostRequest(url, data) {
 	var xhr = new XMLHttpRequest({mozSystem:true});
@@ -154,7 +142,7 @@ function handlePostSuccess(xhr) {
 	var parser = new XMLRPCParser(xhr.response);
 	var json = parser.toObject();
 	var fault = parser.fault;
-	console.log(fault);
+	//console.log(fault);
 	var postIdData = [];
 	var postStatusData = [];
 	var postTitleData = [];
@@ -183,7 +171,7 @@ function handlePostSuccess(xhr) {
 				if (key == "post_content") {
 					postContentData.push(obj[key]);
 				}
-				console.log(key, obj[key]);
+				//console.log(key, obj[key]);
 			}
 		}
 
@@ -197,25 +185,37 @@ function handlePostSuccess(xhr) {
 			listElement.id = i;
 			listElement.className = "listItemContainer";
 			listElement.addEventListener("click", function(e){
-			   var target = e.target;
-			   var childs = target.children;
-			   /*
+			    var target = e.target;
+			    var childs = target.children;
+			    /*
 			     Iterate through the array and get the all the elements text
-			   */
+			    */
 			    //var data = {};
 			    //for (i=0; i<childs.length; i++)
 			    //       data[childs[i].id] = childs[i].innerHTML;
 
-			   /*
+			    /*
 			      Now you can access the data as:
 			      data.itemID, data.itemTitle, data.Status
-			   */
+			    */
 			    //alert(data.itemId);
 			    /*
 			         Or if you are interested in first element then
 			    */
-			     var itemId = childs[1].innerHTML;
-			     alert(itemId);
+			    var itemId = childs[1].innerHTML;
+			    //alert(itemId);
+
+			    for (var i = 0; i < json.length; i++) {
+					if (postIdData[i] == itemId) {
+						document.getElementById("title").innerHTML = postTitleData[i];
+						var element = document.getElementById("menuContainer");
+						element.parentNode.removeChild(element);
+						//alert(postContentData[i]);
+						document.getElementById("postBody").innerHTML = postContentData[i];
+					}
+				}
+				document.getElementById("refresh").style="background-image:url(images/toolbar/previous.png);"
+
 			});
 			listContainer.appendChild(listElement);
 
@@ -239,9 +239,9 @@ function handlePostSuccess(xhr) {
 			itemStatus.className = "itemStatus";
 			listElement.appendChild(itemStatus);
 
-			console.log(postIdData[i]);
+			/*console.log(postIdData[i]);
 			console.log(postStatusData[i]);
-			console.log(postTitleData[i]);
+			console.log(postTitleData[i]);*/
 		}
 	} else {
 		 console.log(json);
@@ -252,7 +252,6 @@ function handlePostError(xhr) {
 	alert("Error: " + xhr.statusText);
 }
 
-function post_Clicked (title)
-{
-    alert("Post title '"+title+"' clicked");
+function viewPost(post_id) {
+
 }
