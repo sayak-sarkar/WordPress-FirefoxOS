@@ -250,7 +250,3 @@ function handlePostSuccess(xhr) {
 function handlePostError(xhr) {
 	alert("Error: " + xhr.statusText);
 }
-
-function viewPost(post_id) {
-
-}

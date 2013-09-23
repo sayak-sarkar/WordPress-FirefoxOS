@@ -127,6 +127,14 @@ hr {
 	margin-left: 225px;
 }
 
+.commentStatus {
+	text-align: right; 
+	font-size: 14px; 
+	font-weight: none; 
+	margin-top: 5px; 
+	margin-left: 205px;
+}
+
 .itemTitle {
 	text-align: left;
 	margin-top: -16px;
@@ -199,4 +207,32 @@ hr {
 #title{
 	font-weight: bold;
 	font-size: 20px;
+}
+
+#author {
+	font-weight: bold;
+	font-size: 30px;
+	text-align: center;
+}
+
+#author_email {
+	font-weight: lighter;
+	font-style: italic;
+	text-align: center;
+}
+
+#author_url {
+	text-align: center;
+}
+
+#post_title {
+	text-align: center;
+	font-weight: bold;
+	padding-top: 10px;
+}
+
+#comment_content {
+	border-top:1px solid gray;
+	margin-top: 10px;
+	padding-top: 20px;
 }

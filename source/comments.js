@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "wp.Comments",
-	kind: "FittableRows",
-	fit: true, classes: "enyo-fit",
+	kind: "Scroller",
+	touch: true,
 	components:[
 
 		//Header Toolbar Definition
@@ -16,70 +16,50 @@ enyo.kind({
 			]}
 		]},
 
-
-		{name: "menuContainer", kind: "FittableColumns", fit: true, components: [
-			{kind: "FittableColumns", components: [
-				{
-					name: "menuDrawer",
-					kind: "onyx.Drawer",
-					layoutKind: "FittableRowsLayout",
-					style: "height: 100%;",
-					orient: "h",
-					open: false,
-					components: [
-						{
-							name: "menuList",
-							kind: "List",
-							onSetupItem: "setupMenuItem",
-							style: "background-color: grey; width: 150px;",
-							touch: "true",
-							components: [
-								{
-									name: "menuItem",
-									classes: "menuItemContainer",
-									ontap: "menuItemTap",
-									components: [
-										{
-											name: "menuTitle",
-											content: "Set Title..."
-										}
-									]
-								}
-							]
-						},
-					],
-				},
-			]},
-			{name: "postContainer", style: "position: relative;", fit: true, components: [
-				//Comments List Definition
-				{
-					name: "commentList",
-					kind: "List",
-					fit: true,
-					count: 0,
-					onSetupItem: "setupCommentItem",
-					components: [
-						{
-							name: "commentItem",
-							classes: "listItemContainer",
-							ontap: "commentItemTap",
-							components: [
-								{
-									name: "commentTitle",
-									content: "Set Title..."
-								}
-							]
-						}
-					]
-				}
-			]},
+		{tag: "div", id: "contents", components:[
+			{name: "menuContainer", id: "menuContainer", kind: "FittableColumns", fit: true, components: [
+				{kind: "FittableColumns", components: [
+					{
+						name: "menuDrawer",
+						kind: "onyx.Drawer",
+						layoutKind: "FittableRowsLayout",
+						style: "height: 100%;",
+						orient: "h",
+						open: false,
+						components: [
+							{
+								name: "menuList",
+								kind: "List",
+								onSetupItem: "setupMenuItem",
+								style: "background-color: grey; width: 150px;",
+								touch: "true",
+								components: [
+									{
+										name: "menuItem",
+										classes: "menuItemContainer",
+										ontap: "menuItemTap",
+										components: [
+											{
+												name: "menuTitle",
+												content: "Set Title..."
+											}
+										]
+									}
+								]
+							},
+						],
+					},
+				]},
+				{name: "commentContainer", kind: "Scroller", style: "position: relative;", components: [
+					{tag: "div", id: "author", style: "margin-left: 5px; margin-right: 5px;"},
+					{tag: "div", id: "author_email", style: "margin-left: 5px; margin-right: 5px;"},
+					{tag: "div", id: "author_url", style: "margin-left: 5px; margin-right: 5px;"},
+					{tag: "div", id: "post_title", style: "margin-left: 5px; margin-right: 5px;"},
+					{tag: "div", id: "comment_content", style: "margin-left: 5px; margin-right: 5px;"},
+					{id: "outerContainer", tag: "div"}
+				]}
+			]}
 		]}
-	],
-	commentDatasource: [
-		{name: "Comment 1", gist: "First sample comment."},
-		{name: "Second Comment", gist: "This is the second sample comment."},
-		{name: "Third One", gist: "This one's the third one!"},
-		{name: "4th Comment", gist: "Phew! This is the last comment."}
 	],
 	menuDatasource: [
 		{name: "Reader"},
@@ -87,11 +67,11 @@ enyo.kind({
 		{name: "Pages",},
 		{name: "Comments"},
 		{name: "Stats"},
-		{name: "View Site"}
-	],
+		{name: "View Site"},
+	],	
 	create: function () {
+		getComments();
 		this.inherited(arguments);
-		this.$.commentList.setCount(this.commentDatasource.length);
 		this.$.menuList.setCount(this.menuDatasource.length);
 	},
 	setupMenuItem: function (inSender, inEvent) {
@@ -118,19 +98,145 @@ enyo.kind({
 		}
 		else{
 			alert("Functionality on its way!");	
-		};
+		}
 	},
-	setupCommentItem: function (inSender, inEvent) {
-		this.childName = this.commentDatasource[inEvent.index].name;
-		this.$.commentTitle.setContent(this.childName);
-	},
-	commentItemTap:function(inSender, inEvent) {
-		alert(this.commentDatasource[inEvent.index].gist);
-	},
-	drawerTap: function(inSender, inEvent) {
+	drawerTap: function (inSender, inEvent) {
 		this.$.menuDrawer.setOpen(!this.$.menuDrawer.open);
 	},
-	stub: function(inSender, inEvent) {
-		this.$.main.addContent("<br/>");
+	refresh: function(inSender, inEvent) {
+		new wp.Comments().renderInto(document.body);
 	}
 });
+
+function getComments() {
+	var params = [sessvars.blogid, sessvars.username, sessvars.password];
+	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.getComments", params);
+	makeCommentRequest(sessvars.url, xmlrpc_data);
+}
+
+function makeCommentRequest(url, data) {
+	var xhr = new XMLHttpRequest({mozSystem:true});
+	xhr.open('POST', url);
+	
+	xhr.onreadystatechange = function() {
+		console.log("Readystate: ", xhr.readyState)
+	}
+	
+	xhr.onload = function() {
+		handleCommentSuccess(xhr);
+	};
+	
+	xhr.onerror = function() {
+		handleCommentError(xhr);
+	};
+	
+	xhr.send(data);
+	return xhr;
+}
+
+function handleCommentSuccess(xhr) {
+	var parser = new XMLRPCParser(xhr.response);
+	var json = parser.toObject();
+	var fault = parser.fault;
+	//console.log(fault);
+
+	var commentIdData = [];
+	var commentStatusData = [];
+	var commentContentData = [];
+	var commentPostTitleData = [];
+	var commentAuthorData = [];
+	var commentAuthorUrlData = [];
+	var commentAuthorEmailData = [];
+	
+	if (json instanceof Array) {
+		for (var i = 0; i < json.length; i++) {
+			var obj = json[i];
+			for(var key in obj) {
+				if (key == "comment_id") {
+					commentIdData.push(obj[key]);
+				}
+				if (key == "status") {
+					if (obj[key] == "hold") {
+						commentStatusData.push("Unapproved");
+					}
+					else if (obj[key] == "approve") {
+						commentStatusData.push("Approved");
+					}
+				}
+				if (key == "content") {
+					commentContentData.push(obj[key]);
+				}
+				if (key == "post_title") {
+					commentPostTitleData.push(obj[key]);
+				}
+				if (key == "author") {
+					commentAuthorData.push(obj[key]);
+				}
+				if (key == "author_url") {
+					commentAuthorUrlData.push(obj[key]);
+				}
+				if (key == "author_email") {
+					commentAuthorEmailData.push(obj[key]);
+				}
+				//console.log(key, obj[key]);
+			}
+		}
+
+		var listContainer = document.createElement("div");
+		document.getElementById("outerContainer").appendChild(listContainer);
+
+		for (var i = 0; i < json.length; i++) {
+
+			//create the element container and attach it to listContainer.
+			var listElement = document.createElement("div");
+			listElement.id = i;
+			listElement.className = "listItemContainer";
+			listElement.addEventListener("click", function(e){
+				var target = e.target;
+				var childs = target.children;
+				var itemId = childs[1].innerHTML;
+				//alert(itemId);
+
+			    for (var i = 1; i < json.length; i++) {
+					if (commentIdData[i] == itemId) {
+						document.getElementById("author").innerHTML = commentAuthorData[i];
+						document.getElementById("author_email").innerHTML = commentAuthorEmailData[i];
+						document.getElementById("author_url").innerHTML = "<a href="+commentAuthorUrlData[i]+">"+commentAuthorUrlData[i]+"</a>";
+						document.getElementById("post_title").innerHTML = commentPostTitleData[i];
+						document.getElementById("comment_content").innerHTML = commentContentData[i];
+						var element = document.getElementById("outerContainer");
+						element.parentNode.removeChild(element);
+					}
+				}
+			});
+			listContainer.appendChild(listElement);
+
+			//create and attach the subchilds for listElement.
+
+			var commentAuthor = document.createElement("span");
+			commentAuthor.innerHTML = commentAuthorData[i];
+			commentAuthor.id = 'author'+i;
+			commentAuthor.className = "itemTitle";
+			listElement.appendChild(commentAuthor);
+
+			var commentId = document.createElement("div");
+			commentId.innerHTML = commentIdData[i];
+			commentId.id = 'id'+i;
+			commentId.className = "itemId";
+			listElement.appendChild(commentId);
+				
+			var commentStatus = document.createElement("span");
+			commentStatus.innerHTML = commentStatusData[i];
+			commentStatus.id = 'status'+i;
+			commentStatus.className = "commentStatus";
+			listElement.appendChild(commentStatus);
+		}
+	} 
+	else {
+		console.log(json);
+	}
+}
+
+function handlecommentError(xhr) {
+	alert("Error: " + xhr.statusText);
+}
