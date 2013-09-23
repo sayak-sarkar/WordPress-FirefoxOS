@@ -26,7 +26,7 @@ enyo.kind({
 		{kind: "onyx.Button", style: "margin-left: 20px;", content: "Optional Settings", ontap: "optionalSettings"},
 		{tag: "br"},
 		*/
-		{id: "SignInButton", kind: "onyx.Button", style: "margin-top: 2px; margin-left: 100px;", content: "Sign In", ontap: "signIn"},
+		{id: "SignInButton", kind: "onyx.Button", style: "margin-top: 2px; margin-left: 114px;", content: "Sign In", ontap: "signIn"},
 		{tag: "br"},
 		{id: "status", style: "margin-top: -30px; text-align: center; font-size: 16px;", content: ""},
 		{id: "spinner", kind: "onyx.Spinner", classes: "onyx-light", style: "margin-left: 125px; visibility: hidden;"}
@@ -86,7 +86,7 @@ function makeLoginRequest(url, data) {
 	        var reqStatus = "Downloading stuff....";
 	    } 
       	else if(xhr.readyState == 4) {
-	    	var reqStatus = "<br/><br/>Invalid Username/Password.";
+	    	var reqStatus = "<br/><br/>Invalid input. <br/>Check URL / Username / Password!";
 	        document.getElementById("SignInButton").style.visibility="visible";
 	        document.getElementById("status").style.color="red";
 	        document.getElementById("spinner").style.visibility="hidden";
@@ -151,5 +151,5 @@ function handleLoginSuccess(xhr) {
 }
 
 function handleLoginError(xhr) {
-  	alert("Error: " + xhr.statusText);
+  	alert("Error! " + xhr.statusText);
 }
