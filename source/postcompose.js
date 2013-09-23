@@ -9,13 +9,7 @@ enyo.kind({
 				{kind: "onyx.Icon", src: "images/toolbar/back.png", ontap: "backTap", style: "height: 38px;"},
 			]},
 			{kind: "onyx.Icon", src: "images/toolbar/wp.png", style: "margin-left:5px; height: 38px; width: 38px;"},
-			{content: "New Post"}, 
-			{kind: "onyx.Button", classes: "toolbarButton", ontap: "previewTap", style: "background-color: #21759b;", components: [
-				{kind: "onyx.Icon", classes: "buttonIcon", id: "preview", src: "images/toolbar/preview.png"}
-			]},
-			{kind: "onyx.Button", classes: "toolbarButton", ontap: "saveDraftTap", style: "background-color: #21759b;", components: [
-				{kind: "onyx.Icon", classes: "buttonIcon", id: "saveDraft",  src: "images/toolbar/save.png"}
-			]},
+			{content: "New Post", style: "margin-right: 80px;"}, 
 			{kind: "onyx.Button", classes: "toolbarButton", ontap: "publishTap", style: "background-color: #21759b;", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "publish",  src: "images/toolbar/publish.png"}
 			]}
@@ -36,19 +30,9 @@ enyo.kind({
 				{kind: "onyx.RichText", name: "contentField", placeholder: "Content (tap to add text)", fit: true, style: "width: 100%;"}
 			]},
 
-			//Tags Input box Definition
-			{kind: "onyx.InputDecorator", style: "margin-top: 10px;", components: [
-				{kind: "onyx.Input", name: "tags", placeholder: "Tags (Comma Separated)", style: "width: 270px;"}
-			]},
-
-			//Categories Input box Definition
-			{kind: "onyx.InputDecorator", style: "margin-top: 5px;", components: [
-				{kind: "onyx.Input", name: "Categories", placeholder: "Categories (Comma Separated)", style: "width: 270px;"}
-			]},
-
 			//Status Menu
 			{
-				name:"pickerMemberType",
+				name:"pickerPostStatus",
 				kind: "onyx.PickerDecorator",
 				style: "margin-top: 5px;",
 				components: [
@@ -71,7 +55,7 @@ enyo.kind({
 
 			//Post Format Menu
 			{
-				name:"pickerMemberType",
+				name:"pickerPostFormat",
 				kind: "onyx.PickerDecorator",
 				style: "margin-top: 5px;",
 				components: [
@@ -99,30 +83,77 @@ enyo.kind({
 		]}
 	],
 	publishTap: function (inSender, inEvent) {
-		this.payLoad = {};
-		this.payLoad.title = this.$.title.getValue();
-		this.payLoad.contentField = this.$.contentField.getValue();
-		console.log(this.payLoad);
-		return this.payLoad;
-	},
-	previewTap: function (inSender, inEvent) {
-		this.payLoad = {};
-		this.payLoad.title = this.$.title.getValue();
-		this.payLoad.contentField = this.$.contentField.getValue();
-		console.log(this.payLoad);
-		return this.payLoad;
-	},
-	saveDraftTap: function (inSender, inEvent) {
-		this.payLoad = {};
-		this.payLoad.title = this.$.title.getValue();
-		this.payLoad.contentField = this.$.contentField.getValue();
-		console.log(this.payLoad);
-		return this.payLoad;
+		sessvars.postTitle = this.$.title.getValue();
+		sessvars.postcontentField = this.$.contentField.getValue();
+		if (this.$.pickerPostStatus.selected != null){
+			sessvars.postStatus = this.$.pickerPostStatus.selected.content;
+		}
+		if (this.$.pickerPostFormat.selected != null){
+			sessvars.postFormat = this.$.pickerPostFormat.selected.content;
+		}
+		console.log(sessvars.postTitle + "<br/>" + sessvars.postcontentField);
+		newPost();
 	},
 	backTap: function(inSender, inEvent) {
 		new wp.Posts().renderInto(document.body);
-	},
-	settingsTap: function(inSender, inEvent) {
-		new wp.PostSettings().renderInto(document.body);
 	}
 });
+
+
+function newPost() {
+
+	var content = {
+		"post_title": sessvars.posttitle,
+		"post_content": sessvars.postcontentField
+	};
+
+	var params = [sessvars.blogId, sessvars.username, sessvars.password, content];
+	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPost", params);
+	
+	makeRequest(sessvars.url, xmlrpc_data);		
+}
+
+function makeRequest(url, data) {
+	var xhr = new XMLHttpRequest({mozSystem:true});
+	xhr.open('POST', url);
+	
+	xhr.onreadystatechange = function() {
+		console.log("Readystate: ", xhr.readyState)
+	}
+	
+	xhr.onload = function() {
+		handleSuccess(xhr);
+	};
+	
+	xhr.onerror = function() {
+		handleError(xhr);
+	};
+	
+	xhr.send(data);
+	return xhr;
+}
+
+function handleSuccess(xhr) {
+	document.getElementById("results").innerHTML = xhr.responseText;
+
+	var parser = new XMLRPCParser(xhr.response);
+	var json = parser.toObject();
+	var fault = parser.fault;
+	console.log(fault);
+
+	if (json instanceof Array) {
+		for (var i = 0; i < json.length; i++) {
+			var obj = json[i];
+			for(var key in obj) {
+				console.log(key, obj[key]);
+			}
+		}
+	} else {
+		 console.log(json);
+	}
+	
+}
+
+function handleError(xhr) {
+	document.getElementById("results").innerHTML = "Error: " + xhr.statusText;
+}
