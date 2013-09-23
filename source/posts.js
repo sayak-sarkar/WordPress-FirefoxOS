@@ -19,9 +19,6 @@ enyo.kind({
 			]}
 		]},
 
-		{tag: "div", id: "title", style: "margin-left: 5px; margin-right: 5px;"},
-		{tag: "div", id: "postBody", style: "margin-left: 5px; margin-right: 5px;"},
-
 		{tag: "div", id: "contents", components:[
 			{name: "menuContainer", id: "menuContainer", kind: "FittableColumns", fit: true, components: [
 				{kind: "FittableColumns", components: [
@@ -57,6 +54,8 @@ enyo.kind({
 					},
 				]},
 				{name: "postContainer", kind: "Scroller", style: "position: relative;", components: [
+					{tag: "div", id: "title", style: "margin-left: 5px; margin-right: 5px;"},
+					{tag: "div", id: "postBody", style: "margin-left: 5px; margin-right: 5px;"},
 					{id: "outerContainer", tag: "div"}
 				]}
 			]}
@@ -208,7 +207,7 @@ function handlePostSuccess(xhr) {
 			    for (var i = 0; i < json.length; i++) {
 					if (postIdData[i] == itemId) {
 						document.getElementById("title").innerHTML = postTitleData[i];
-						var element = document.getElementById("menuContainer");
+						var element = document.getElementById("outerContainer");
 						element.parentNode.removeChild(element);
 						//alert(postContentData[i]);
 						document.getElementById("postBody").innerHTML = postContentData[i];
