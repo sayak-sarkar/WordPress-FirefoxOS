@@ -2,6 +2,7 @@
 XMLRPCBuilder = function(methodName, methodParams){
   this.methodName = methodName;
   this.methodParams = methodParams;
+    
 }
 
 XMLRPCBuilder.marshal = function(methodName, methodParams){

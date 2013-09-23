@@ -9,7 +9,10 @@ enyo.kind({
 				{kind: "onyx.Icon", src: "images/toolbar/back.png", ontap: "backTap", style: "height: 38px;"},
 			]},
 			{kind: "onyx.Icon", src: "images/toolbar/wp.png", style: "margin-left: 5px; margin-right: 4px; height: 38px; width: 38px;"},
-			{content: "New Page", style: "margin-right: 80px;"}, 
+			{content: "New Page", style: "margin-right: 40px;"}, 
+			{kind: "onyx.Button", classes: "toolbarButton", ontap: "draftTap", style: "background-color: #21759b;", components: [
+				{kind: "onyx.Icon", classes: "buttonIcon", id: "saveDraft",  src: "images/toolbar/save.png"}
+			]},
 			{kind: "onyx.Button", classes: "toolbarButton", ontap: "publishTap", style: "background-color: #21759b;", components: [
 				{kind: "onyx.Icon", classes: "buttonIcon", id: "publish",  src: "images/toolbar/publish.png"}
 			]}
@@ -28,58 +31,53 @@ enyo.kind({
 			{kind: "onyx.InputDecorator", layoutKind:"FittableRowsLayout", style: "margin-top: 20px; width: 270px; height: 300px;", components: [
 				{kind: "onyx.RichText", id: "pageComposeContent", name: "contentField", placeholder: "Content (tap to add text)", fit: true, style: "width: 100%;"}
 			]},
-
-			//Status Menu
-			{
-				name:"pickerPageStatus",
-				id: "pickerPageStatusId",
-				kind: "onyx.PickerDecorator",
-				style: "margin-top: 10px;",
-				components: [
-					{
-						kind: "onyx.PickerButton",
-						content: "Status",
-						style: "width: 100%"
-					},
-					{
-						kind: "onyx.Picker",
-						components: [
-							{content: "Publish"},
-							{content: "Draft"},
-							{content: "Pending Review"},
-							{content: "Private"}
-						]
-					}
-				]
-			},
-
 		]}
 	],
 	publishTap: function (inSender, inEvent) {
 		sessvars.pagetitle = this.$.title.getValue();
 		sessvars.pagecontentField = this.$.contentField.getValue();
-		if (this.$.pickerPageStatus.selected != null){
-			sessvars.pageStatus = this.$.pickerPageStatus.selected.content;
-		}
+		
 		console.log(sessvars.pagetitle + "<br/>" + sessvars.pagecontentField);
-		newPage();
+		publishPage();
+	},
+	draftTap: function (inSender, inEvent) {
+		sessvars.pagetitle = this.$.title.getValue();
+		sessvars.pagecontentField = this.$.contentField.getValue();
+
+		console.log(sessvars.pagetitle + "<br/>" + sessvars.pagecontentField);
+		draftPage();
 	},
 	backTap: function(inSender, inEvent) {
 		new wp.Pages().renderInto(document.body);
 	}
 });
 
-function newPage() {
+function publishPage() {
 
 	var content = {
 		"title": sessvars.pagetitle,
-		"description" : sessvars.pagecontentField
+		"description" : sessvars.pagecontentField,
+		"page_status": "publish"
 	};
 
-	var params = [sessvars.blogId, sessvars.username, sessvars.password, content];
+	var params = [sessvars.blogid, sessvars.username, sessvars.password, content];
 	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPost", params);
 	
-	makeRequest(sessvars.url, xmlrpc_data);		
+	makeNewPageRequest(sessvars.url, xmlrpc_data);		
+}
+
+function draftPage() {
+
+	var content = {
+		"title": sessvars.pagetitle,
+		"description" : sessvars.pagecontentField,
+		"page_status": "draft"
+	};
+
+	var params = [sessvars.blogid, sessvars.username, sessvars.password, content];
+	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPost", params);
+	
+	makeNewPageRequest(sessvars.url, xmlrpc_data);		
 }
 
 
