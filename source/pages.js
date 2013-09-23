@@ -199,7 +199,6 @@ function handlePageSuccess(xhr) {
 						document.getElementById("postBody").innerHTML = pageContentData[i];
 					}
 				}
-				document.getElementById("refresh").style="background-image:url(images/toolbar/previous.png);"
 
 			});
 			listContainer.appendChild(listElement);

@@ -213,8 +213,6 @@ function handlePostSuccess(xhr) {
 						document.getElementById("postBody").innerHTML = postContentData[i];
 					}
 				}
-				document.getElementById("refresh").style="background-image:url(images/toolbar/previous.png);"
-
 			});
 			listContainer.appendChild(listElement);
 
