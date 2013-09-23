@@ -96,6 +96,9 @@ enyo.kind({
 			window.open("http://wordpress.com/my-stats/");
 			//new wp.Stats().renderInto(document.body);
 		}
+		else if (this.menuDatasource[inEvent.index].name == "View Site") {
+			window.open(sessvars.inputUrl);
+		}
 		else{
 			alert("Functionality on its way!");	
 		}
