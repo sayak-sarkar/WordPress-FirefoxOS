@@ -65,7 +65,7 @@ function publishPost() {
 		"post_status": "publish",
 		"post_content" : sessvars.postcontentField
 	};
-
+	sessvars.statusIndicator = "Publish";
 	var params = [sessvars.blogid, sessvars.username, sessvars.password, content];
 	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPost", params);
 	
@@ -79,7 +79,7 @@ function draftPost() {
 		"post_status": "draft",
 		"post_content" : sessvars.postcontentField
 	};
-
+	sessvars.statusIndicator = "Draft";
 	var params = [sessvars.blogid, sessvars.username, sessvars.password, content];
 	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPost", params);
 	
@@ -93,7 +93,7 @@ function makeNewPostRequest(url, data) {
 	xhr.onreadystatechange = function() {
 		console.log("Readystate: ", xhr.readyState);
 		if (xhr.readyState=="4") {
-			alert("Post Published Successfully!")
+			alert("Post "+sessvars.statusIndicator+"ed Successfully!")
 		};
 	}
 	

@@ -59,7 +59,7 @@ function publishPage() {
 		"description" : sessvars.pagecontentField,
 		"page_status": "publish"
 	};
-
+	sessvars.statusIndicator = "Publish";
 	var params = [sessvars.blogid, sessvars.username, sessvars.password, content];
 	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPage", params);
 	
@@ -73,7 +73,7 @@ function draftPage() {
 		"description" : sessvars.pagecontentField,
 		"page_status": "draft"
 	};
-
+	sessvars.statusIndicator = "Draft";
 	var params = [sessvars.blogid, sessvars.username, sessvars.password, content];
 	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPage", params);
 	
@@ -88,7 +88,7 @@ function makeNewPageRequest(url, data) {
 	xhr.onreadystatechange = function() {
 		console.log("Readystate: ", xhr.readyState);
 		if (xhr.readyState=="4") {
-			alert("Page Published Successfully!")
+			alert("Page "+sessvars.statusIndicator+"ed Successfully!")
 		};
 	}
 	
