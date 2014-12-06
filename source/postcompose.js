@@ -35,20 +35,20 @@ enyo.kind({
 		]}
 	],
 	publishTap: function (inSender, inEvent) {
-		sessvars.postTitle = this.$.title.getValue();
-		sessvars.postcontentField = this.$.contentField.getValue();
+		sessionStorage.postTitle = this.$.title.getValue();
+		sessionStorage.postcontentField = this.$.contentField.getValue();
 
-		console.log(sessvars.postTitle + "<br/>" + sessvars.postcontentField);
-		console.log(sessvars.blogid, sessvars.username, sessvars.password);
+		console.log(sessionStorage.postTitle + "<br/>" + sessionStorage.postcontentField);
+		console.log(sessionStorage.blogid, sessionStorage.username, sessionStorage.password);
 
 		publishPost();
 	},
 	draftTap: function (inSender, inEvent) {
-		sessvars.postTitle = this.$.title.getValue();
-		sessvars.postcontentField = this.$.contentField.getValue();
+		sessionStorage.postTitle = this.$.title.getValue();
+		sessionStorage.postcontentField = this.$.contentField.getValue();
 
-		console.log(sessvars.postTitle + "<br/>" + sessvars.postcontentField);
-		console.log(sessvars.blogid, sessvars.username, sessvars.password);
+		console.log(sessionStorage.postTitle + "<br/>" + sessionStorage.postcontentField);
+		console.log(sessionStorage.blogid, sessionStorage.username, sessionStorage.password);
 
 		draftPost();
 	},
@@ -61,29 +61,29 @@ enyo.kind({
 function publishPost() {
 
 	var content = {
-		"post_title": sessvars.postTitle,
+		"post_title": sessionStorage.postTitle,
 		"post_status": "publish",
-		"post_content" : sessvars.postcontentField
+		"post_content" : sessionStorage.postcontentField
 	};
-	sessvars.statusIndicator = "Publish";
-	var params = [sessvars.blogid, sessvars.username, sessvars.password, content];
+	sessionStorage.statusIndicator = "Publish";
+	var params = [sessionStorage.blogid, sessionStorage.username, sessionStorage.password, content];
 	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPost", params);
 	
-	makeNewPostRequest(sessvars.url, xmlrpc_data);		
+	makeNewPostRequest(sessionStorage.url, xmlrpc_data);		
 }
 
 function draftPost() {
 
 	var content = {
-		"post_title": sessvars.postTitle,
+		"post_title": sessionStorage.postTitle,
 		"post_status": "draft",
-		"post_content" : sessvars.postcontentField
+		"post_content" : sessionStorage.postcontentField
 	};
-	sessvars.statusIndicator = "Draft";
-	var params = [sessvars.blogid, sessvars.username, sessvars.password, content];
+	sessionStorage.statusIndicator = "Draft";
+	var params = [sessionStorage.blogid, sessionStorage.username, sessionStorage.password, content];
 	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPost", params);
 	
-	makeNewPostRequest(sessvars.url, xmlrpc_data);		
+	makeNewPostRequest(sessionStorage.url, xmlrpc_data);		
 }
 
 function makeNewPostRequest(url, data) {
@@ -93,7 +93,7 @@ function makeNewPostRequest(url, data) {
 	xhr.onreadystatechange = function() {
 		console.log("Readystate: ", xhr.readyState);
 		if (xhr.readyState=="4") {
-			alert("Post "+sessvars.statusIndicator+"ed Successfully!")
+			alert("Post "+sessionStorage.statusIndicator+"ed Successfully!")
 		};
 	}
 	

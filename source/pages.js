@@ -97,7 +97,7 @@ enyo.kind({
 			//new wp.Stats().renderInto(document.body);
 		}
 		else if (this.menuDatasource[inEvent.index].name == "View Site") {
-			window.open(sessvars.inputUrl);
+			window.open(sessionStorage.inputUrl);
 		}
 		else{
 			alert("Functionality on its way!");	
@@ -115,9 +115,9 @@ enyo.kind({
 });
 
 function getPages () {
-	var params = [sessvars.blogid, sessvars.username, sessvars.password];
+	var params = [sessionStorage.blogid, sessionStorage.username, sessionStorage.password];
 	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.getPages", params);
-	makePageRequest(sessvars.url, xmlrpc_data);
+	makePageRequest(sessionStorage.url, xmlrpc_data);
 }
 
 function makePageRequest(url, data) {

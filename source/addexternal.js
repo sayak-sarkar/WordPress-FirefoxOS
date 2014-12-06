@@ -43,13 +43,13 @@ enyo.kind({
 	},*/
 
 	signIn: function () {
-		sessvars.inputUrl = fixURL(this.$.blogurl.getValue());
-		sessvars.url = fixURL(this.$.blogurl.getValue()) + "/xmlrpc.php";
-		sessvars.username = this.$.username.getValue();
-		sessvars.password = this.$.password.getValue();	
-		var params = [sessvars.username, sessvars.password];
+		sessionStorage.inputUrl = fixURL(this.$.blogurl.getValue());
+		sessionStorage.url = fixURL(this.$.blogurl.getValue()) + "/xmlrpc.php";
+		sessionStorage.username = this.$.username.getValue();
+		sessionStorage.password = this.$.password.getValue();	
+		var params = [sessionStorage.username, sessionStorage.password];
 		var xmlrpc_data =  XMLRPCBuilder.marshal("wp.getUsersBlogs", params);
-		makeLoginRequest(sessvars.url, xmlrpc_data);
+		makeLoginRequest(sessionStorage.url, xmlrpc_data);
 	},
 
 	/*optionalSettings: function() {
@@ -124,17 +124,17 @@ function handleLoginSuccess(xhr) {
 				var obj = json[i];
 				for(var key in obj) {
 					if (key == "url") {
-						sessvars.urlResponse = fixURL(obj[key]);
-						//alert("sessvars.urlResponse: "+sessvars.urlResponse);
+						sessionStorage.urlResponse = fixURL(obj[key]);
+						//alert("sessionStorage.urlResponse: "+sessionStorage.urlResponse);
 					}
-					else if (sessvars.urlResponse == sessvars.inputUrl) {
+					else if (sessionStorage.urlResponse == sessionStorage.inputUrl) {
 						if (key == "blogid") {
-							sessvars.blogid = obj[key];
-							//alert("sessvars.blogid: "+sessvars.blogid);
+							sessionStorage.blogid = obj[key];
+							//alert("sessionStorage.blogid: "+sessionStorage.blogid);
 						}
 						else if (key == "blogName") {
-							sessvars.blogName = obj[key];
-							//alert("sessvars.blogName: "+sessvars.blogName);
+							sessionStorage.blogName = obj[key];
+							//alert("sessionStorage.blogName: "+sessionStorage.blogName);
 						}
 					}
 					//console.log(key, obj[key]);

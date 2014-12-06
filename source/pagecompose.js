@@ -34,17 +34,17 @@ enyo.kind({
 		]}
 	],
 	publishTap: function (inSender, inEvent) {
-		sessvars.pagetitle = this.$.title.getValue();
-		sessvars.pagecontentField = this.$.contentField.getValue();
+		sessionStorage.pagetitle = this.$.title.getValue();
+		sessionStorage.pagecontentField = this.$.contentField.getValue();
 		
-		console.log(sessvars.pagetitle + "<br/>" + sessvars.pagecontentField);
+		console.log(sessionStorage.pagetitle + "<br/>" + sessionStorage.pagecontentField);
 		publishPage();
 	},
 	draftTap: function (inSender, inEvent) {
-		sessvars.pagetitle = this.$.title.getValue();
-		sessvars.pagecontentField = this.$.contentField.getValue();
+		sessionStorage.pagetitle = this.$.title.getValue();
+		sessionStorage.pagecontentField = this.$.contentField.getValue();
 
-		console.log(sessvars.pagetitle + "<br/>" + sessvars.pagecontentField);
+		console.log(sessionStorage.pagetitle + "<br/>" + sessionStorage.pagecontentField);
 		draftPage();
 	},
 	backTap: function(inSender, inEvent) {
@@ -55,29 +55,29 @@ enyo.kind({
 function publishPage() {
 
 	var content = {
-		"title": sessvars.pagetitle,
-		"description" : sessvars.pagecontentField,
+		"title": sessionStorage.pagetitle,
+		"description" : sessionStorage.pagecontentField,
 		"page_status": "publish"
 	};
-	sessvars.statusIndicator = "Publish";
-	var params = [sessvars.blogid, sessvars.username, sessvars.password, content];
+	sessionStorage.statusIndicator = "Publish";
+	var params = [sessionStorage.blogid, sessionStorage.username, sessionStorage.password, content];
 	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPage", params);
 	
-	makeNewPageRequest(sessvars.url, xmlrpc_data);		
+	makeNewPageRequest(sessionStorage.url, xmlrpc_data);		
 }
 
 function draftPage() {
 
 	var content = {
-		"title": sessvars.pagetitle,
-		"description" : sessvars.pagecontentField,
+		"title": sessionStorage.pagetitle,
+		"description" : sessionStorage.pagecontentField,
 		"page_status": "draft"
 	};
-	sessvars.statusIndicator = "Draft";
-	var params = [sessvars.blogid, sessvars.username, sessvars.password, content];
+	sessionStorage.statusIndicator = "Draft";
+	var params = [sessionStorage.blogid, sessionStorage.username, sessionStorage.password, content];
 	var xmlrpc_data =  XMLRPCBuilder.marshal("wp.newPage", params);
 	
-	makeNewPageRequest(sessvars.url, xmlrpc_data);		
+	makeNewPageRequest(sessionStorage.url, xmlrpc_data);		
 }
 
 
@@ -88,7 +88,7 @@ function makeNewPageRequest(url, data) {
 	xhr.onreadystatechange = function() {
 		console.log("Readystate: ", xhr.readyState);
 		if (xhr.readyState=="4") {
-			alert("Page "+sessvars.statusIndicator+"ed Successfully!")
+			alert("Page "+sessionStorage.statusIndicator+"ed Successfully!")
 		};
 	}
 	
