@@ -1,5 +1,5 @@
 {
-    "version": "0.01",
+    "version": "0.02",
     "name": "WordPress",
     "launch_path": "/index.html",
     "description": "WordPress for Firefox OS.",
