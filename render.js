@@ -1,0 +1,1 @@
+new wp.AddExternal().renderInto(document.body);
